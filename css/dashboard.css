@@ -227,7 +227,7 @@ body[data-theme="dark"] .recent-item strong{color:#e2e8f0}
 
 /* System theme */
 @media(prefers-color-scheme:dark){body[data-theme="system"]{background:#070d17;color:#e2e8f0}body[data-theme="system"] .workspace-shell{background:#070d17}body[data-theme="system"] .dashboard-toolbar,body[data-theme="system"] .data-tools,body[data-theme="system"] .recent-panel{background:#0d1624;border-color:#1e2d40}body[data-theme="system"] .record-card{background:#0d1624;border-color:#24364b}body[data-theme="system"] .record-title,body[data-theme="system"] .section-heading h2{color:#f1f5f9}body[data-theme="system"] .file-row{background:#111e30;border-color:#26394f}}
-.model-picker-search{display:flex;align-items:center;gap:7px;height:36px;min-width:180px;padding:0 10px;border:1px solid #334155;border-radius:9px;background:#172033;color:#9ca3af}.model-picker-search input{width:120px;border:0;outline:0;background:transparent;color:#f8fafc;font:700 10px "JetBrains Mono"}.hardware-checklist-card{grid-column:1/-1;margin-top:2px;padding:14px;border:1px solid #dbe3ec;border-radius:10px;background:#fff;display:flex;align-items:center;gap:14px}.hardware-checklist-head{display:flex;flex-direction:column;gap:4px;min-width:170px}.hardware-checklist-body{flex:1;color:#64748b;font-size:10px}.hardware-checklist-card .btn{margin-left:auto}@media(max-width:800px){.model-picker-search{min-width:130px}.hardware-checklist-card{flex-wrap:wrap}.hardware-checklist-card .btn{margin-left:0}}
+.model-picker-search{display:flex;align-items:center;gap:7px;height:36px;min-width:180px;padding:0 10px;border:1px solid #334155;border-radius:9px;background:#172033;color:#9ca3af}.model-picker-search input{width:120px;border:0;outline:0;background:transparent;color:#f8fafc;font:700 10px "JetBrains Mono"}
 
 /* Reliable searchable model picker */
 .model-picker-search{position:relative;overflow:visible;z-index:60}
@@ -237,3 +237,32 @@ body[data-theme="dark"] .recent-item strong{color:#e2e8f0}
 .model-picker-option:hover,.model-picker-option.active{background:#1e293b;border-color:#3b82f6}
 .model-picker-code{font:800 10px "JetBrains Mono";color:#60a5fa}.model-picker-name{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.model-picker-empty{padding:16px;text-align:center;color:#94a3b8;font-size:10px}
 @media(max-width:700px){.model-picker-menu{position:fixed;top:62px;left:12px;right:12px;width:auto;max-height:55vh}.model-picker-search{min-width:150px}}
+
+/* Hardware Checklist is a first-class grid card immediately before S. */
+.record-card.hardware-checklist-record{border-top:3px solid #64748b}.record-card.hardware-checklist-record .record-key{color:#64748b}.hw-upload-btn{background:#64748b!important}.hardware-checklist-record .record-icon{background:#64748b!important}
+
+
+/* v11 laptop visual refresh: larger UI + professional navy/blue palette */
+:root{
+  --navy:#0b1630;--accent:#2563eb;--accent-soft:#eff6ff;--accent-border:#bfdbfe;
+  --border:#cbd5e1;--muted:#64748b;--shadow:0 10px 28px rgba(15,23,42,.08);
+}
+body{background:#eef3f8;color:#172033;font-size:14px}
+.app-container{max-width:2600px;padding-left:30px;padding-right:30px}
+.app-header{background:#0b1630;border-bottom:1px solid #223457}
+.header-inner{min-height:78px;gap:26px}
+.brand{gap:14px}.brand-mark{width:46px;height:46px;border-radius:12px;background:#12213e;color:#60a5fa;border-color:#334a72}
+.brand-title{font-size:16px}.brand-subtitle{font-size:10px}.env-badge{font-size:9px;color:#93c5fd;border-color:#315a99;background:#13294b;padding:5px 8px}
+.header-actions{gap:10px}.model-picker,.header-search input,.header-icon-btn{height:42px}.model-picker{padding:0 13px;background:#13213b;border-color:#3b82f6;color:#bfdbfe}.model-picker select{font-size:12px;color:#dbeafe}.header-search{width:320px}.header-search input{font-size:12px;background:#13213b;border-color:#334a72}.header-search>i{top:13px}.header-icon-btn{width:42px;background:#13213b;border-color:#334a72}
+.hero-console{background:linear-gradient(135deg,#0b1630 0%,#12264a 55%,#17345e 100%);border-bottom:1px solid #294a7a}
+.hero-layout{grid-template-columns:230px minmax(0,1fr) auto;gap:24px}.active-model{padding-right:24px}.active-model-label{font-size:10px;color:#93c5fd}.active-model-code{font-size:40px}.active-model-name{font-size:14px}.telemetry-grid{gap:12px}.telemetry-tile{min-height:76px;padding:13px;border-radius:12px}.telemetry-tile small{font-size:9px}.telemetry-tile strong{font-size:12px;max-width:210px}.telemetry-icon{width:36px;height:36px}.hero-actions{gap:9px}.btn{height:40px;padding:0 14px;font-size:11px}.btn-amber{background:#2563eb;color:#fff}.btn-cyan{background:#3b82f6}
+.dashboard-toolbar{padding:15px;border-radius:15px}.section-icon{width:38px;height:38px}.section-heading h2{font-size:14px}.section-heading p{font-size:10px}.cat-btn{padding:9px 12px;font-size:11px}.toolbar-status{font-size:9px}
+.records-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:18px}.record-card{min-height:285px;border-radius:15px;box-shadow:0 5px 16px rgba(15,23,42,.07)}.record-stripe{height:4px}.record-body{padding:18px;gap:15px}.record-title-wrap{gap:11px}.record-icon{width:38px;height:38px;border-radius:10px;font-size:13px}.record-key{font-size:9px}.record-title{font-size:15px;line-height:1.35}.category-label{font-size:9px}.tags{gap:5px;margin-top:10px}.tag{font-size:10px;padding:5px 7px;border-radius:6px}.file-area{padding-top:12px}.file-row{padding:10px;border-radius:9px;gap:10px}.file-name{font-size:11px}.file-size{font-size:9px}.download-btn{padding:8px 10px;font-size:9px}.card-actions{gap:10px}.card-actions button,.card-actions a{font-size:10px}
+.data-tools{padding:11px 12px;margin:13px 0}.tool-btn{height:36px;font-size:10px;padding:0 11px}.tool-select{font-size:10px}.tool-select select{height:36px;font-size:10px}
+.app-footer{margin-top:26px}.footer-inner{height:58px;font-size:10px}
+/* Keep 4 columns on normal laptops; move to 5 columns on wider desktop displays. */
+@media(min-width:1500px){.records-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(max-width:1450px) and (min-width:1101px){.records-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:1100px){.app-container{padding-left:22px;padding-right:22px}.header-search{width:240px}.records-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:820px){.app-container{padding-left:14px;padding-right:14px}.records-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.record-card{min-height:260px}.record-title{font-size:14px}}
+@media(max-width:560px){.records-grid{grid-template-columns:1fr}.app-container{padding-left:12px;padding-right:12px}.header-inner{min-height:64px}.brand-title{font-size:13px}.record-body{padding:15px}}
