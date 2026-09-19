@@ -38,6 +38,12 @@
           <button id="clearSearchBtn" class="icon-btn hidden" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
+        <div class="model-picker-search">
+          <i class="fa-solid fa-microchip"></i>
+          <input id="modelPickerInput" list="modelOptions" value="A576" placeholder="Select model..." aria-label="Select model">
+          <datalist id="modelOptions"></datalist>
+        </div>
+
         <button id="themeBtn" class="header-icon-btn" title="Toggle light/dark theme" aria-label="Toggle light/dark theme">
           <i id="themeIcon" class="fa-solid fa-moon"></i>
         </button>
@@ -74,11 +80,6 @@
         <button id="exportReportBtn" class="sidebar-action"><i class="fa-solid fa-file-lines"></i><span>Engineering Report</span></button>
       </div>
 
-      <div class="model-nav">
-        <div class="model-nav-title">MODELS</div>
-        <div id="modelNav" class="model-nav-list"></div>
-      </div>
-
       <div class="sidebar-footer">
         <span><i class="fa-solid fa-database"></i> Local repository</span>
         <button id="sidebarCollapseBtn" class="sidebar-collapse-btn" title="Collapse sidebar" aria-label="Collapse sidebar"><i class="fa-solid fa-angles-left"></i></button>
@@ -108,7 +109,6 @@
       <div class="tool-group">
         <label class="tool-select"><span>Sort</span><select id="sortSelect"><option value="default">A→S order</option><option value="title">Title</option><option value="category">Category</option><option value="favorite">Favorites first</option></select></label>
         <button id="favoritesToggle" class="tool-btn" title="Show favorites only"><i class="fa-regular fa-star"></i> Favorites</button>
-        <button id="compareBtn" class="tool-btn"><i class="fa-solid fa-code-compare"></i> Compare Models</button>
         <button id="presentationBtn" class="tool-btn"><i class="fa-solid fa-display"></i> Presentation</button>
       </div>
       <div class="tool-group">
@@ -118,6 +118,11 @@
 
     <div id="activeFilters" class="active-filters hidden"></div>
     <section id="cardsGrid" class="records-grid" aria-live="polite"></section>
+    <section class="hardware-checklist-card" aria-label="Hardware Checklist">
+      <div class="hardware-checklist-head"><span class="record-key">HARDWARE CHECKLIST</span><span class="tag">Before S</span></div>
+      <div class="hardware-checklist-body">Upload the hardware checklist file for the active model here.</div>
+      <button class="btn btn-light" id="hardwareChecklistUploadBtn"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Checklist</button>
+    </section>
 
     <section class="recent-panel">
       <div class="recent-heading"><span><i class="fa-solid fa-clock-rotate-left"></i> Recently Viewed</span><small>Existing records only</small></div>
@@ -129,7 +134,7 @@
   <footer class="app-footer">
     <div class="app-container footer-inner">
       <div><span class="online-dot"></span> Mobile R&D Engineering Portal</div>
-      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v7.0</span></div>
+      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v8.0</span></div>
     </div>
   </footer>
 
@@ -219,16 +224,6 @@
 
 
   <!-- Compare -->
-  <div id="compareModal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <section class="modal-panel modal-xl" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
-      <button class="modal-close" data-close="compareModal"><i class="fa-solid fa-xmark"></i></button>
-      <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-code-compare"></i></div><div><h2 id="compareTitle">Model Comparison</h2><p class="modal-description">Compare the existing A→S records between two models. Differences are highlighted.</p></div></div>
-      <div class="compare-controls"><label>Model A<select id="compareModelA" class="settings-select"></select></label><label>Model B<select id="compareModelB" class="settings-select"></select></label></div>
-      <div id="compareBody" class="compare-body"></div>
-    </section>
-  </div>
-
   <!-- Presentation -->
   <div id="presentationModal" class="modal hidden">
     <div class="modal-backdrop"></div>
