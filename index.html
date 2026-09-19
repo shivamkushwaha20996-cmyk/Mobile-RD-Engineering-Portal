@@ -98,12 +98,31 @@
       <div class="toolbar-status">
         <span class="online-dot"></span>
         <span id="storageStatus">LOCAL DATABASE READY</span>
-        <span class="shortcut-hint">/ Search · F Fullscreen</span>
+        <span class="shortcut-hint">/ Search · F Fullscreen · P Present</span>
+      </div>
+    </section>
+
+    <section class="data-tools">
+      <div class="tool-group">
+        <label class="tool-select"><span>Sort</span><select id="sortSelect"><option value="default">A→S order</option><option value="title">Title</option><option value="category">Category</option><option value="favorite">Favorites first</option></select></label>
+        <button id="favoritesToggle" class="tool-btn" title="Show favorites only"><i class="fa-regular fa-star"></i> Favorites</button>
+        <button id="compareBtn" class="tool-btn"><i class="fa-solid fa-code-compare"></i> Compare Models</button>
+        <button id="presentationBtn" class="tool-btn"><i class="fa-solid fa-display"></i> Presentation</button>
+      </div>
+      <div class="tool-group">
+        <button id="selectAllBtn" class="tool-btn">Select visible</button>
+        <button id="clearFiltersBtn" class="tool-btn">Clear filters</button>
       </div>
     </section>
 
     <div id="activeFilters" class="active-filters hidden"></div>
+    <div id="selectionBar" class="selection-bar hidden"><strong id="selectionCount">0 selected</strong><span>Use selected records for export or print.</span><div class="selection-actions"><button id="exportSelectedBtn" class="btn btn-cyan">Export Selected</button><button id="printSelectedBtn" class="btn btn-light">Print</button><button id="clearSelectionBtn" class="btn btn-light">Clear</button></div></div>
     <section id="cardsGrid" class="records-grid" aria-live="polite"></section>
+
+    <section class="recent-panel">
+      <div class="recent-heading"><span><i class="fa-solid fa-clock-rotate-left"></i> Recently Viewed</span><small>Existing records only</small></div>
+      <div id="recentList" class="recent-list"></div>
+    </section>
   </main>
 
   <footer class="app-footer">
@@ -194,6 +213,28 @@
           <button id="resetBtn" class="btn btn-danger">Reset Local Data</button>
         </div>
       </div>
+    </section>
+  </div>
+
+
+  <!-- Compare -->
+  <div id="compareModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-xl" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+      <button class="modal-close" data-close="compareModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-code-compare"></i></div><div><h2 id="compareTitle">Model Comparison</h2><p class="modal-description">Compare the existing A→S records between two models. Differences are highlighted.</p></div></div>
+      <div class="compare-controls"><label>Model A<select id="compareModelA" class="settings-select"></select></label><label>Model B<select id="compareModelB" class="settings-select"></select></label></div>
+      <div id="compareBody" class="compare-body"></div>
+    </section>
+  </div>
+
+  <!-- Presentation -->
+  <div id="presentationModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel presentation-panel" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close="presentationModal"><i class="fa-solid fa-xmark"></i></button>
+      <div id="presentationContent" class="presentation-content"></div>
+      <div class="presentation-nav"><button id="prevRecordBtn" class="btn btn-light">← Previous</button><button id="nextRecordBtn" class="btn btn-dark">Next →</button></div>
     </section>
   </div>
 
