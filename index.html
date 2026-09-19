@@ -38,11 +38,18 @@
 
         <div class="header-search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchInput" type="search" placeholder="Search records, files, tags..." autocomplete="off">
+          <input id="searchInput" type="search" placeholder="Search records, files, tags..." autocomplete="off" aria-label="Search records, files, tags">
+          <kbd class="search-kbd">Ctrl K</kbd>
           <button id="clearSearchBtn" class="icon-btn hidden" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <button id="settingsBtn" class="header-icon-btn" title="Portal settings">
+        <button id="themeBtn" class="header-icon-btn" title="Toggle light/dark theme" aria-label="Toggle light/dark theme">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+        <button id="fullscreenBtn" class="header-icon-btn" title="Fullscreen" aria-label="Fullscreen">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <button id="settingsBtn" class="header-icon-btn" title="Portal settings" aria-label="Portal settings">
           <i class="fa-solid fa-gear"></i>
         </button>
         <div id="adminAuthSlot"></div>
@@ -91,6 +98,7 @@
       <div class="toolbar-status">
         <span class="online-dot"></span>
         <span id="storageStatus">LOCAL DATABASE READY</span>
+        <span class="shortcut-hint">/ Search · F Fullscreen</span>
       </div>
     </section>
 
@@ -169,8 +177,14 @@
       <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-sliders"></i></div><div><h2>Portal Settings</h2><p class="modal-description">Local preferences and data management.</p></div></div>
 
       <div class="settings-list">
-        <label class="setting-row"><span><strong>Compact cards</strong><small>Reduce card height for large monitors.</small></span><input id="compactToggle" type="checkbox"></label>
+        <div class="settings-section-title">APPEARANCE</div>
+        <label class="setting-row"><span><strong>Theme</strong><small>Switch between light, dark, or system appearance.</small></span><select id="themeSelect" class="settings-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></label>
+        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option></select></label>
+        <label class="setting-row"><span><strong>Card density</strong><small>Choose comfortable or compact record spacing.</small></span><select id="densitySelect" class="settings-select"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label>
         <label class="setting-row"><span><strong>Animations</strong><small>Enable card and interface motion.</small></span><input id="motionToggle" type="checkbox" checked></label>
+        <div class="settings-section-title">WORKSPACE</div>
+        <div class="setting-info"><i class="fa-solid fa-star"></i><span>Favorites and last-viewed model are saved locally in this browser.</span></div>
+        <div class="shortcut-grid"><span><kbd>Ctrl K</kbd> Focus search</span><span><kbd>/</kbd> Focus search</span><span><kbd>F</kbd> Fullscreen</span><span><kbd>Esc</kbd> Close panels</span></div>
       </div>
 
       <div class="settings-danger">

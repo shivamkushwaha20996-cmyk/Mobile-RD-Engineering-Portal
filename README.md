@@ -111,3 +111,15 @@ The current admin authentication and IndexedDB storage are browser-side prototyp
 ### UI-only feature direction
 
 The existing A→S records and model data remain unchanged. UI enhancements can be added without creating new engineering data modules: Light/Dark/System theme, accent color, card density, sidebar collapse, keyboard shortcuts, favorites, improved search, fullscreen, notifications, print mode, export controls, accessibility, and saved UI preferences.
+
+## UI enhancements (v3)
+- Light / dark / system theme
+- Accent color selector
+- Comfortable / compact card density
+- Favorites for records
+- Last-viewed model persistence
+- `Ctrl+K` and `/` search shortcuts
+- `F` fullscreen shortcut
+- Fullscreen control in header
+- Improved responsive mobile layout
+- Expanded local settings panel
