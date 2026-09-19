@@ -38,10 +38,11 @@
           <button id="clearSearchBtn" class="icon-btn hidden" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <div class="model-picker-search">
+        <div class="model-picker-search" id="modelPickerWrap">
           <i class="fa-solid fa-microchip"></i>
-          <input id="modelPickerInput" list="modelOptions" value="A576" placeholder="Select model..." aria-label="Select model">
-          <datalist id="modelOptions"></datalist>
+          <input id="modelPickerInput" value="A576" placeholder="Select model..." autocomplete="off" aria-label="Select model" aria-expanded="false" aria-controls="modelPickerMenu">
+          <button id="modelPickerToggle" class="model-picker-toggle" type="button" aria-label="Open model list"><i class="fa-solid fa-chevron-down"></i></button>
+          <div id="modelPickerMenu" class="model-picker-menu hidden" role="listbox"></div>
         </div>
 
         <button id="themeBtn" class="header-icon-btn" title="Toggle light/dark theme" aria-label="Toggle light/dark theme">
