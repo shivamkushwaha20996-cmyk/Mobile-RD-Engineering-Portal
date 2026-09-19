@@ -123,3 +123,11 @@ The existing A→S records and model data remain unchanged. UI enhancements can 
 - Fullscreen control in header
 - Improved responsive mobile layout
 - Expanded local settings panel
+
+
+## v5 UI update
+- Laptop-first left engineering sidebar containing the complete active-model block
+- Model navigation moved to the left vertical section
+- Removed record selection / bulk-select UI
+- Added collapsible sidebar
+- Existing A→S data and model records are preserved

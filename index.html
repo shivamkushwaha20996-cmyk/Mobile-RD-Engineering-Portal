@@ -31,11 +31,6 @@
       </div>
 
       <div class="header-actions">
-        <label class="model-picker">
-          <i class="fa-solid fa-mobile-screen-button"></i>
-          <select id="modelSelect" aria-label="Select target model"></select>
-        </label>
-
         <div class="header-search">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input id="searchInput" type="search" placeholder="Search records, files, tags..." autocomplete="off" aria-label="Search records, files, tags">
@@ -57,31 +52,38 @@
     </div>
   </header>
 
-  <section class="hero-console">
-    <div class="app-container py-5">
-      <div class="hero-layout">
-        <div class="active-model">
-          <div class="active-model-label"><i class="fa-solid fa-star"></i> ACTIVE MODEL</div>
-          <div id="activeModelCode" class="active-model-code">A576</div>
-          <div class="active-model-name" id="activeModelName">Galaxy A576</div>
-          <div class="status-pill" id="modelStatus"><i class="fa-solid fa-circle"></i> Mass Production</div>
-        </div>
-
-        <div class="telemetry-grid">
-          <div class="telemetry-tile"><div class="telemetry-icon cyan"><i class="fa-solid fa-microchip"></i></div><div><small>PROCESSOR</small><strong id="metaAp">—</strong></div></div>
-          <div class="telemetry-tile"><div class="telemetry-icon green"><i class="fa-solid fa-tower-broadcast"></i></div><div><small>MODEM / RF</small><strong id="metaModem">—</strong></div></div>
-          <div class="telemetry-tile"><div class="telemetry-icon indigo"><i class="fa-solid fa-code-branch"></i></div><div><small>SW BUILD</small><strong id="metaSw">—</strong></div></div>
-          <div class="telemetry-tile"><div class="telemetry-icon slate"><i class="fa-solid fa-user-tie"></i></div><div><small>HQ LEAD</small><strong id="metaLead">—</strong></div></div>
-        </div>
-
-        <div class="hero-actions">
-          <button id="copySpecsBtn" class="btn btn-dark"><i class="fa-regular fa-copy"></i> Copy Specs</button>
-          <button id="exportJsonBtn" class="btn btn-amber"><i class="fa-solid fa-file-export"></i> Export JSON</button>
-          <button id="exportReportBtn" class="btn btn-cyan"><i class="fa-solid fa-file-lines"></i> Report</button>
-        </div>
+  <div class="workspace-shell">
+    <aside class="model-sidebar" aria-label="Active model and model navigation">
+      <div class="sidebar-top">
+        <div class="sidebar-kicker"><i class="fa-solid fa-star"></i> ACTIVE MODEL</div>
+        <div id="activeModelCode" class="sidebar-model-code">A576</div>
+        <div id="activeModelName" class="sidebar-model-name">Galaxy A576</div>
+        <div id="modelStatus" class="status-pill"><i class="fa-solid fa-circle"></i> Mass Production</div>
       </div>
-    </div>
-  </section>
+
+      <div class="sidebar-telemetry">
+        <div class="sidebar-metric"><span><i class="fa-solid fa-microchip"></i> PROCESSOR</span><strong id="metaAp">—</strong></div>
+        <div class="sidebar-metric"><span><i class="fa-solid fa-tower-broadcast"></i> MODEM / RF</span><strong id="metaModem">—</strong></div>
+        <div class="sidebar-metric"><span><i class="fa-solid fa-code-branch"></i> SW BUILD</span><strong id="metaSw">—</strong></div>
+        <div class="sidebar-metric"><span><i class="fa-solid fa-user-tie"></i> HQ LEAD</span><strong id="metaLead">—</strong></div>
+      </div>
+
+      <div class="sidebar-actions">
+        <button id="copySpecsBtn" class="sidebar-action"><i class="fa-regular fa-copy"></i><span>Copy Specs</span></button>
+        <button id="exportJsonBtn" class="sidebar-action"><i class="fa-solid fa-file-export"></i><span>Export JSON</span></button>
+        <button id="exportReportBtn" class="sidebar-action"><i class="fa-solid fa-file-lines"></i><span>Engineering Report</span></button>
+      </div>
+
+      <div class="model-nav">
+        <div class="model-nav-title">MODELS</div>
+        <div id="modelNav" class="model-nav-list"></div>
+      </div>
+
+      <div class="sidebar-footer">
+        <span><i class="fa-solid fa-database"></i> Local repository</span>
+        <button id="sidebarCollapseBtn" class="sidebar-collapse-btn" title="Collapse sidebar" aria-label="Collapse sidebar"><i class="fa-solid fa-angles-left"></i></button>
+      </div>
+    </aside>
 
   <main class="app-container py-5 flex-1">
     <section class="dashboard-toolbar">
@@ -98,7 +100,7 @@
       <div class="toolbar-status">
         <span class="online-dot"></span>
         <span id="storageStatus">LOCAL DATABASE READY</span>
-        <span class="shortcut-hint">/ Search · F Fullscreen · P Present</span>
+        <span class="shortcut-hint">/ Search · F Fullscreen · P Present · ← → Browse</span>
       </div>
     </section>
 
@@ -110,13 +112,11 @@
         <button id="presentationBtn" class="tool-btn"><i class="fa-solid fa-display"></i> Presentation</button>
       </div>
       <div class="tool-group">
-        <button id="selectAllBtn" class="tool-btn">Select visible</button>
         <button id="clearFiltersBtn" class="tool-btn">Clear filters</button>
       </div>
     </section>
 
     <div id="activeFilters" class="active-filters hidden"></div>
-    <div id="selectionBar" class="selection-bar hidden"><strong id="selectionCount">0 selected</strong><span>Use selected records for export or print.</span><div class="selection-actions"><button id="exportSelectedBtn" class="btn btn-cyan">Export Selected</button><button id="printSelectedBtn" class="btn btn-light">Print</button><button id="clearSelectionBtn" class="btn btn-light">Clear</button></div></div>
     <section id="cardsGrid" class="records-grid" aria-live="polite"></section>
 
     <section class="recent-panel">
@@ -124,11 +124,12 @@
       <div id="recentList" class="recent-list"></div>
     </section>
   </main>
+  </div>
 
   <footer class="app-footer">
     <div class="app-container footer-inner">
       <div><span class="online-dot"></span> Mobile R&D Engineering Portal</div>
-      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v2.0</span></div>
+      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v5.0</span></div>
     </div>
   </footer>
 
