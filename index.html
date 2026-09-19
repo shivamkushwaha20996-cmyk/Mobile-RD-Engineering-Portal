@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mobile R&D Engineering Portal">
+  <title>Mobile R&D Engineering Portal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-800 antialiased">
+  <div class="top-accent"></div>
+
+  <header class="app-header sticky top-0 z-40">
+    <div class="app-container header-inner">
+      <div class="brand">
+        <div class="brand-mark"><i class="fa-solid fa-microchip"></i></div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="brand-title">Mobile <span>R&D</span> Engineering Portal</h1>
+            <span class="env-badge"><i class="fa-solid fa-circle"></i> ENGINEERING</span>
+          </div>
+          <p class="brand-subtitle">Hardware • RF • Quality • Process • Software Records</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <label class="model-picker">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <select id="modelSelect" aria-label="Select target model"></select>
+        </label>
+
+        <div class="header-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" type="search" placeholder="Search records, files, tags..." autocomplete="off">
+          <button id="clearSearchBtn" class="icon-btn hidden" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <button id="settingsBtn" class="header-icon-btn" title="Portal settings">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <div id="adminAuthSlot"></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-console">
+    <div class="app-container py-5">
+      <div class="hero-layout">
+        <div class="active-model">
+          <div class="active-model-label"><i class="fa-solid fa-star"></i> ACTIVE MODEL</div>
+          <div id="activeModelCode" class="active-model-code">A576</div>
+          <div class="active-model-name" id="activeModelName">Galaxy A576</div>
+          <div class="status-pill" id="modelStatus"><i class="fa-solid fa-circle"></i> Mass Production</div>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="telemetry-tile"><div class="telemetry-icon cyan"><i class="fa-solid fa-microchip"></i></div><div><small>PROCESSOR</small><strong id="metaAp">—</strong></div></div>
+          <div class="telemetry-tile"><div class="telemetry-icon green"><i class="fa-solid fa-tower-broadcast"></i></div><div><small>MODEM / RF</small><strong id="metaModem">—</strong></div></div>
+          <div class="telemetry-tile"><div class="telemetry-icon indigo"><i class="fa-solid fa-code-branch"></i></div><div><small>SW BUILD</small><strong id="metaSw">—</strong></div></div>
+          <div class="telemetry-tile"><div class="telemetry-icon slate"><i class="fa-solid fa-user-tie"></i></div><div><small>HQ LEAD</small><strong id="metaLead">—</strong></div></div>
+        </div>
+
+        <div class="hero-actions">
+          <button id="copySpecsBtn" class="btn btn-dark"><i class="fa-regular fa-copy"></i> Copy Specs</button>
+          <button id="exportJsonBtn" class="btn btn-amber"><i class="fa-solid fa-file-export"></i> Export JSON</button>
+          <button id="exportReportBtn" class="btn btn-cyan"><i class="fa-solid fa-file-lines"></i> Report</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="app-container py-5 flex-1">
+    <section class="dashboard-toolbar">
+      <div class="toolbar-main">
+        <div class="section-heading">
+          <div class="section-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <div>
+            <h2>Engineering Records</h2>
+            <p id="recordCount">19 records</p>
+          </div>
+        </div>
+        <div class="category-tabs" id="categoryTabs"></div>
+      </div>
+      <div class="toolbar-status">
+        <span class="online-dot"></span>
+        <span id="storageStatus">LOCAL DATABASE READY</span>
+      </div>
+    </section>
+
+    <div id="activeFilters" class="active-filters hidden"></div>
+    <section id="cardsGrid" class="records-grid" aria-live="polite"></section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="app-container footer-inner">
+      <div><span class="online-dot"></span> Mobile R&D Engineering Portal</div>
+      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v2.0</span></div>
+    </div>
+  </footer>
+
+  <!-- Login -->
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-sm" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <button class="modal-close" data-close="loginModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-icon"><i class="fa-solid fa-lock"></i></div>
+      <h2 id="loginTitle">Admin Authentication</h2>
+      <p class="modal-description">Demo/local authentication for upload management.</p>
+      <form id="loginForm">
+        <label class="form-label">Admin Password</label>
+        <input id="passwordInput" class="form-input" type="password" placeholder="Enter password" required>
+        <p class="help-text">Demo password: <strong>admin123</strong>. Replace this with real SSO/backend authentication before production.</p>
+        <p id="loginError" class="error-text hidden">Incorrect password.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-light" data-close="loginModal">Cancel</button>
+          <button class="btn btn-dark" type="submit">Authenticate</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- Upload -->
+  <div id="uploadModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-lg" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+      <button class="modal-close" data-close="uploadModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-heading">
+        <div class="modal-icon cyan-bg"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+        <div><h2 id="uploadTitle">Upload Engineering Document</h2><p class="modal-description">Store a binary file in browser IndexedDB and link it to a record.</p></div>
+      </div>
+
+      <form id="uploadForm">
+        <div class="form-grid-2">
+          <div><label class="form-label">Target Model</label><select id="uploadModel" class="form-input"></select></div>
+          <div><label class="form-label">Record</label><select id="uploadRecord" class="form-input"></select></div>
+        </div>
+        <div>
+          <label class="form-label">Engineering Note</label>
+          <input id="uploadNote" class="form-input" placeholder="e.g. Rev 2.1 matching network update">
+        </div>
+        <div id="dropZone" class="drop-zone">
+          <i class="fa-solid fa-file-arrow-up"></i>
+          <strong id="fileName">Drop file here or click to browse</strong>
+          <span>PDF, XLSX, XLS, ZIP, BIN, DWG, CSV, DOCX, PPTX • Application limit 500 MB</span>
+          <input id="fileInput" type="file" hidden>
+        </div>
+        <div class="upload-progress hidden" id="uploadProgressWrap"><div id="uploadProgress"></div></div>
+        <div id="uploadStatus" class="help-text"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-light" data-close="uploadModal">Cancel</button>
+          <button id="saveUploadBtn" class="btn btn-cyan" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Document</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- Settings -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-md" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close="settingsModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-sliders"></i></div><div><h2>Portal Settings</h2><p class="modal-description">Local preferences and data management.</p></div></div>
+
+      <div class="settings-list">
+        <label class="setting-row"><span><strong>Compact cards</strong><small>Reduce card height for large monitors.</small></span><input id="compactToggle" type="checkbox"></label>
+        <label class="setting-row"><span><strong>Animations</strong><small>Enable card and interface motion.</small></span><input id="motionToggle" type="checkbox" checked></label>
+      </div>
+
+      <div class="settings-danger">
+        <div><strong>Local data</strong><small>Export or reset the local dashboard dataset.</small></div>
+        <div class="flex gap-2">
+          <button id="backupBtn" class="btn btn-light">Backup Data</button>
+          <button id="resetBtn" class="btn btn-danger">Reset Local Data</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "project": "Mobile R&D Engineering Portal",
+  "version": "2.0.0",
+  "files": [
+    "README.md",
+    "css/dashboard.css",
+    "data/models.js",
+    "index.html",
+    "js/app.js",
+    "js/database.js",
+    "js/ui.js",
+    "package.json"
+  ],
+  "notes": [
+    "Frontend-only modular architecture",
+    "IndexedDB used for local binary files",
+    "Demo admin authentication only",
+    "Production authentication must be server-side"
+  ]
+}
