@@ -125,7 +125,7 @@ The existing A→S records and model data remain unchanged. UI enhancements can 
 - Expanded local settings panel
 
 
-## v6 UI update
+## v7 UI update
 - Laptop-first left engineering sidebar containing the complete active-model block
 - Model navigation moved to the left vertical section
 - Removed record selection / bulk-select UI
