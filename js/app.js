@@ -3,7 +3,7 @@ import {saveFile,getFile,deleteAllFiles,addAudit} from "./database.js";
 import {toast,escapeHtml,formatBytes,downloadBlob,downloadText} from "./ui.js";
 
 const STORAGE_KEY="MOBILE_RND_DB_DATA_V10";
-const PREF_KEY="MOBILE_RND_PREFS_V1";
+const PREF_KEY="MOBILE_RND_PREFS_V2";
 const AUTH_KEY="RND_AUTH_V2";
 const MAX_FILE_SIZE=500*1024*1024;
 const ALLOWED=["pdf","xlsx","xls","zip","bin","dwg","csv","doc","docx","ppt","pptx"];
@@ -15,13 +15,14 @@ let activeCategory="all";
 let query="";
 let isAdmin=sessionStorage.getItem(AUTH_KEY)==="true";
 let selectedFile=null;
+let favorites=JSON.parse(localStorage.getItem("MOBILE_RND_FAVORITES_V1")||"[]");
 
 function loadData(){
   try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||createDefaultData()}catch{return createDefaultData()}
 }
 function saveData(){localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
 function loadPrefs(){
-  try{return {...{compact:false,motion:true},...JSON.parse(localStorage.getItem(PREF_KEY))}}catch{return {compact:false,motion:true}}
+  try{return {...{theme:"light",accent:"cyan",density:"comfortable",motion:true},...JSON.parse(localStorage.getItem(PREF_KEY))}}catch{return {theme:"light",accent:"cyan",density:"comfortable",motion:true}}
 }
 function savePrefs(){localStorage.setItem(PREF_KEY,JSON.stringify(prefs))}
 function currentItems(){return data[currentModel].items}
@@ -29,6 +30,8 @@ function currentItems(){return data[currentModel].items}
 function init(){
   document.getElementById("modelSelect").innerHTML=MODEL_ORDER.map(m=>`<option value="${m}">${m} • ${data[m].meta.name}</option>`).join("");
   document.getElementById("uploadModel").innerHTML=MODEL_ORDER.map(m=>`<option value="${m}">${m} • ${data[m].meta.name}</option>`).join("");
+  const lastModel=localStorage.getItem("MOBILE_RND_LAST_MODEL_V1");
+  if(lastModel && MODEL_ORDER.includes(lastModel)) currentModel=lastModel;
   document.getElementById("modelSelect").value=currentModel;
   document.getElementById("uploadModel").value=currentModel;
   renderCategories(); renderAll(); bindEvents(); applyPrefs();
@@ -99,7 +102,9 @@ function renderCard(key,item){
       <button class="download-btn" style="background:${color}" data-download="${currentModel}_${key}" data-filename="${escapeHtml(item.filename)}"><i class="fa-solid fa-download"></i> DOWNLOAD</button>
     </div>`;
   }
-  return `<article class="record-card">
+  const favoriteKey=`${currentModel}:${key}`;
+  const isFavorite=favorites.includes(favoriteKey);
+  return `<article class="record-card ${isFavorite?"is-favorite":""}">
     <div class="record-stripe" style="background:${color}"></div>
     <div class="record-body">
       <div>
@@ -108,7 +113,10 @@ function renderCard(key,item){
             <div class="record-icon" style="background:${color}"><i class="fa-solid ${escapeHtml(item.icon)}"></i></div>
             <div class="min-w-0"><div class="record-key">RECORD ${key}</div><div class="record-title">${escapeHtml(item.title)}</div></div>
           </div>
-          <span class="category-label">${escapeHtml(item.category)}</span>
+          <div class="card-actions">
+            <span class="category-label">${escapeHtml(item.category)}</span>
+            <button class="favorite-btn ${isFavorite?"active":""}" data-favorite="${escapeHtml(favoriteKey)}" title="${isFavorite?"Remove from favorites":"Add to favorites"}" aria-label="${isFavorite?"Remove from favorites":"Add to favorites"}"><i class="fa-${isFavorite?"solid":"regular"} fa-star"></i></button>
+          </div>
         </div>
         <div class="tags">${tags||'<span class="tag">No additional metadata</span>'}</div>
       </div>
@@ -135,15 +143,24 @@ function openModal(id){document.getElementById(id).classList.remove("hidden")}
 function closeModal(id){document.getElementById(id).classList.add("hidden")}
 
 function bindEvents(){
-  document.getElementById("modelSelect").addEventListener("change",e=>{currentModel=e.target.value;document.getElementById("uploadModel").value=currentModel;renderAll()});
+  document.getElementById("modelSelect").addEventListener("change",e=>{currentModel=e.target.value;localStorage.setItem("MOBILE_RND_LAST_MODEL_V1",currentModel);document.getElementById("uploadModel").value=currentModel;renderAll()});
   document.getElementById("searchInput").addEventListener("input",e=>{query=e.target.value.trim();document.getElementById("clearSearchBtn").classList.toggle("hidden",!query);renderCards()});
   document.getElementById("clearSearchBtn").addEventListener("click",()=>{query="";document.getElementById("searchInput").value="";document.getElementById("clearSearchBtn").classList.add("hidden");renderCards()});
   document.getElementById("categoryTabs").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;activeCategory=b.dataset.cat;renderCategories();renderCards()});
-  document.getElementById("cardsGrid").addEventListener("click",e=>{const b=e.target.closest("[data-download]");if(b)downloadRecord(b.dataset.download,b.dataset.filename)});
+  document.getElementById("cardsGrid").addEventListener("click",e=>{
+    const fav=e.target.closest("[data-favorite]");
+    if(fav){toggleFavorite(fav.dataset.favorite);return}
+    const b=e.target.closest("[data-download]");if(b)downloadRecord(b.dataset.download,b.dataset.filename)
+  });
   document.getElementById("copySpecsBtn").addEventListener("click",copySpecs);
   document.getElementById("exportJsonBtn").addEventListener("click",()=>exportModel());
   document.getElementById("exportReportBtn").addEventListener("click",exportReport);
   document.getElementById("settingsBtn").addEventListener("click",()=>openModal("settingsModal"));
+  document.getElementById("themeBtn").addEventListener("click",()=>{prefs.theme=prefs.theme==="dark"?"light":"dark";savePrefs();applyPrefs();toast(`${prefs.theme==="dark"?"Dark":"Light"} theme enabled.`,"info")});
+  document.getElementById("fullscreenBtn").addEventListener("click",toggleFullscreen);
+  document.getElementById("themeSelect").addEventListener("change",e=>{prefs.theme=e.target.value;savePrefs();applyPrefs()});
+  document.getElementById("accentSelect").addEventListener("change",e=>{prefs.accent=e.target.value;savePrefs();applyPrefs()});
+  document.getElementById("densitySelect").addEventListener("change",e=>{prefs.density=e.target.value;savePrefs();applyPrefs()});
   document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeModal(b.dataset.close)));
   document.querySelectorAll(".modal-backdrop").forEach(b=>b.addEventListener("click",()=>b.parentElement.classList.add("hidden")));
   document.getElementById("loginForm").addEventListener("submit",login);
@@ -158,10 +175,40 @@ function bindEvents(){
   document.getElementById("motionToggle").addEventListener("change",e=>{prefs.motion=e.target.checked;savePrefs();applyPrefs()});
   document.getElementById("backupBtn").addEventListener("click",()=>downloadText(JSON.stringify(data,null,2),`MobileRD_Backup_${dateStamp()}.json`));
   document.getElementById("resetBtn").addEventListener("click",resetData);
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal:not(.hidden)").forEach(m=>m.classList.add("hidden"))});
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape")document.querySelectorAll(".modal:not(.hidden)").forEach(m=>m.classList.add("hidden"));
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();document.getElementById("searchInput").focus()}
+    if(e.key==="/" && !["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName)){e.preventDefault();document.getElementById("searchInput").focus()}
+    if(e.key.toLowerCase()==="f" && !["INPUT","TEXTAREA","SELECT"].includes(document.activeElement.tagName))toggleFullscreen();
+  });
 }
 
-function applyPrefs(){document.body.classList.toggle("compact",prefs.compact);document.body.classList.toggle("no-motion",!prefs.motion);document.getElementById("compactToggle").checked=prefs.compact;document.getElementById("motionToggle").checked=prefs.motion}
+function applyPrefs(){
+  document.body.classList.toggle("no-motion",!prefs.motion);
+  document.body.dataset.theme=prefs.theme;
+  document.body.dataset.accent=prefs.accent;
+  document.body.dataset.density=prefs.density;
+  document.getElementById("themeSelect").value=prefs.theme;
+  document.getElementById("accentSelect").value=prefs.accent;
+  document.getElementById("densitySelect").value=prefs.density;
+  document.getElementById("motionToggle").checked=prefs.motion;
+  const icon=document.getElementById("themeIcon");
+  icon.className=`fa-solid fa-${prefs.theme==="dark"?"sun":"moon"}`;
+}
+
+function toggleFavorite(id){
+  favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
+  localStorage.setItem("MOBILE_RND_FAVORITES_V1",JSON.stringify(favorites));
+  renderCards();
+  toast(favorites.includes(id)?"Added to favorites.":"Removed from favorites.","info");
+}
+
+async function toggleFullscreen(){
+  try{
+    if(!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  }catch{toast("Fullscreen is not available in this browser.","error")}
+}
 
 function login(e){
   e.preventDefault();
