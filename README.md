@@ -1,3 +1,7 @@
+
+### v10 UI fix
+- Hardware Checklist is rendered as a normal engineering card between R and S.
+- Checklist upload/download uses the same IndexedDB file workflow as other records.
 # Mobile R&D Engineering Portal
 
 ## Included
