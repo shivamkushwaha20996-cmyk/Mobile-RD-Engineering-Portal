@@ -97,3 +97,18 @@ function navigateRecord(delta){const arr=RECORD_ORDER.filter(k=>currentItems()[k
 async function resetData(){if(!confirm("Reset all local dashboard data and stored files? This cannot be undone."))return;data=createDefaultData();saveData();await deleteAllFiles();await addAudit("RESET");currentModel=MODEL_ORDER[0];activeCategory="all";query="";renderCategories();renderAll();closeModal("settingsModal");toast("Local data reset to default dataset.","success")}
 function dateStamp(){return new Date().toISOString().slice(0,10).replaceAll("-","")}
 init();
+
+/* V10 animation enhancement: click ripple */
+document.addEventListener('click',(event)=>{
+  const target=event.target.closest('button,.btn,.cat-btn,.download-btn,.header-icon-btn,.file-row');
+  if(!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const rect=target.getBoundingClientRect();
+  const ripple=document.createElement('span');
+  ripple.className='portal-click-ripple';
+  ripple.style.left=(event.clientX-rect.left)+'px';
+  ripple.style.top=(event.clientY-rect.top)+'px';
+  if(getComputedStyle(target).position==='static') target.style.position='relative';
+  target.style.overflow='hidden';
+  target.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),420);
+});
