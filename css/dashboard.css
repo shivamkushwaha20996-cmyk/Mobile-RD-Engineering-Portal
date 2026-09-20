@@ -227,4 +227,109 @@ body[data-theme="dark"] .recent-item strong{color:#e2e8f0}
 
 /* System theme */
 @media(prefers-color-scheme:dark){body[data-theme="system"]{background:#070d17;color:#e2e8f0}body[data-theme="system"] .workspace-shell{background:#070d17}body[data-theme="system"] .dashboard-toolbar,body[data-theme="system"] .data-tools,body[data-theme="system"] .recent-panel{background:#0d1624;border-color:#1e2d40}body[data-theme="system"] .record-card{background:#0d1624;border-color:#24364b}body[data-theme="system"] .record-title,body[data-theme="system"] .section-heading h2{color:#f1f5f9}body[data-theme="system"] .file-row{background:#111e30;border-color:#26394f}}
-.model-picker-search{display:flex;align-items:center;gap:7px;height:36px;min-width:180px;padding:0 10px;border:1px solid #334155;border-radius:9px;background:#172033;color:#9ca3af}.model-picker-search input{width:120px;border:0;outline:0;background:transparent;color:#f8fafc;font:700 10px "JetBrains Mono"}.hardware-checklist-card{grid-column:1/-1;margin-top:2px;padding:14px;border:1px solid #dbe3ec;border-radius:10px;background:#fff;display:flex;align-items:center;gap:14px}.hardware-checklist-head{display:flex;flex-direction:column;gap:4px;min-width:170px}.hardware-checklist-body{flex:1;color:#64748b;font-size:10px}.hardware-checklist-card .btn{margin-left:auto}@media(max-width:800px){.model-picker-search{min-width:130px}.hardware-checklist-card{flex-wrap:wrap}.hardware-checklist-card .btn{margin-left:0}}
+.model-picker-search{display:flex;align-items:center;gap:7px;height:36px;min-width:180px;padding:0 10px;border:1px solid #334155;border-radius:9px;background:#172033;color:#9ca3af}.model-picker-search input{width:120px;border:0;outline:0;background:transparent;color:#f8fafc;font:700 10px "JetBrains Mono"}
+
+/* Reliable searchable model picker */
+.model-picker-search{position:relative;overflow:visible;z-index:60}
+.model-picker-toggle{border:0;background:transparent;color:#94a3b8;cursor:pointer;padding:4px 2px}
+.model-picker-menu{position:absolute;top:calc(100% + 7px);right:0;width:320px;max-height:420px;overflow:auto;padding:6px;background:#111827;border:1px solid #334155;border-radius:10px;box-shadow:0 18px 45px rgba(15,23,42,.28)}
+.model-picker-option{width:100%;display:grid;grid-template-columns:70px 1fr;gap:10px;text-align:left;padding:9px 10px;border:1px solid transparent;border-radius:7px;background:transparent;color:#e5e7eb;cursor:pointer}
+.model-picker-option:hover,.model-picker-option.active{background:#1e293b;border-color:#3b82f6}
+.model-picker-code{font:800 10px "JetBrains Mono";color:#60a5fa}.model-picker-name{font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.model-picker-empty{padding:16px;text-align:center;color:#94a3b8;font-size:10px}
+@media(max-width:700px){.model-picker-menu{position:fixed;top:62px;left:12px;right:12px;width:auto;max-height:55vh}.model-picker-search{min-width:150px}}
+
+/* Hardware Checklist is a first-class grid card immediately before S. */
+.record-card.hardware-checklist-record{border-top:3px solid #64748b}.record-card.hardware-checklist-record .record-key{color:#64748b}.hw-upload-btn{background:#64748b!important}.hardware-checklist-record .record-icon{background:#64748b!important}
+
+/* =========================================================
+   V10 VISUAL UPDATE ONLY
+   Broader topmost section + larger fonts + new colors.
+   No data, record, grid, upload, or functionality changes.
+   ========================================================= */
+
+.app-header{
+  min-height:76px;
+}
+.header-inner{
+  min-height:76px;
+  padding-left:24px;
+  padding-right:24px;
+  gap:20px;
+}
+.brand-title{font-size:17px;}
+.brand-subtitle{font-size:11px;}
+
+body{font-size:14px;}
+.record-title{font-size:15px;}
+.record-key{font-size:10px;}
+.category-label{font-size:10px;}
+.file-name{font-size:11px;}
+.file-size{font-size:9px;}
+.tag{font-size:10px;}
+.record-actions{font-size:10px;}
+.btn{font-size:11px;}
+.sidebar-model-code{font-size:32px;}
+.sidebar-model-name{font-size:13px;}
+.sidebar-kicker{font-size:10px;}
+
+:root{
+  --v10-navy:#101c33;
+  --v10-navy-2:#162642;
+  --v10-blue:#2f64c8;
+  --v10-blue-dark:#234d9e;
+  --v10-bg:#edf1f6;
+  --v10-card:#ffffff;
+  --v10-border:#d3dbe7;
+  --v10-text:#1d2939;
+}
+
+body{
+  background:var(--v10-bg);
+  color:var(--v10-text);
+}
+
+.app-header{
+  background:linear-gradient(180deg,var(--v10-navy),var(--v10-navy-2));
+  border-bottom-color:var(--v10-blue);
+}
+
+.model-sidebar{
+  background:linear-gradient(180deg,#0d192d,#14243d);
+}
+
+.record-card{
+  background:var(--v10-card);
+  border-color:var(--v10-border);
+}
+
+.btn-primary,
+.btn-cyan{
+  background:var(--v10-blue);
+}
+.btn-primary:hover,
+.btn-cyan:hover{
+  background:var(--v10-blue-dark);
+}
+
+.header-search input,
+.model-picker-search,
+.model-picker{
+  border-color:#405b86;
+}
+
+/* V10 animation enhancement */
+@keyframes portalFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes portalRipple{to{transform:translate(-50%,-50%) scale(13);opacity:0}}
+@keyframes portalPop{0%{transform:scale(.97)}70%{transform:scale(1.015)}100%{transform:scale(1)}}
+.app-header,.workspace-shell>.app-container{animation:portalFadeIn .45s ease-out both}
+.record-card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.record-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,23,42,.13)}
+button,.btn,.header-icon-btn,.cat-btn,.download-btn,.model-picker{transition:transform .12s ease,box-shadow .16s ease,background-color .16s ease,border-color .16s ease}
+button:hover,.btn:hover,.header-icon-btn:hover,.cat-btn:hover,.download-btn:hover{transform:translateY(-1px)}
+button:active,.btn:active,.header-icon-btn:active,.cat-btn:active,.download-btn:active{transform:translateY(1px) scale(.97);animation:portalPop .16s ease-out}
+.download-btn:hover,.btn-primary:hover,.btn-cyan:hover{box-shadow:0 5px 14px rgba(47,100,200,.24)}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(47,100,200,.13)}
+.file-row{transition:transform .15s ease,background-color .15s ease,border-color .15s ease}
+.file-row:hover{transform:translateX(3px)}
+.portal-click-ripple{position:absolute;width:12px;height:12px;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.42);transform:translate(-50%,-50%) scale(0);animation:portalRipple .42s ease-out forwards}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
