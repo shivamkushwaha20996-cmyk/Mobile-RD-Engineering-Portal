@@ -333,3 +333,78 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(47,100,200,.13
 .file-row:hover{transform:translateX(3px)}
 .portal-click-ripple{position:absolute;width:12px;height:12px;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.42);transform:translate(-50%,-50%) scale(0);animation:portalRipple .42s ease-out forwards}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* =========================================================
+   V10 HEADER VISIBILITY FIX
+   Only top/header blocks: larger, wider, higher contrast.
+   No data, records, grid, uploads or other functionality changed.
+   ========================================================= */
+
+.app-header{
+  min-height:92px !important;
+  height:92px !important;
+  background:#071a36 !important;
+  border-bottom:3px solid #3f7cff !important;
+  box-shadow:0 5px 18px rgba(7,26,54,.35) !important;
+}
+.header-inner{
+  min-height:92px !important;
+  height:92px !important;
+  padding:0 28px !important;
+  gap:24px !important;
+}
+.brand-title{font-size:20px !important;font-weight:800 !important;color:#fff !important;}
+.brand-subtitle{font-size:12px !important;color:#a9c7ff !important;}
+.brand-mark{
+  width:48px !important;height:48px !important;
+  background:#173b78 !important;border:1px solid #4d82e8 !important;color:#8db5ff !important;
+}
+.header-search{width:390px !important;}
+.header-search input{
+  height:48px !important;font-size:13px !important;color:#fff !important;
+  background:#102a52 !important;border:1px solid #4774b9 !important;
+}
+.header-search input::placeholder{color:#b5c7e5 !important;}
+.model-picker,.model-picker-search{
+  min-height:48px !important;height:48px !important;
+  background:#102a52 !important;border:1px solid #4774b9 !important;
+  color:#fff !important;
+}
+.model-picker-search input{font-size:13px !important;color:#fff !important;}
+.header-icon-btn{
+  width:48px !important;height:48px !important;
+  background:#102a52 !important;border:1px solid #4774b9 !important;color:#e9f1ff !important;
+}
+.header-icon-btn:hover{background:#1c4280 !important;border-color:#76a4ff !important;}
+.header-inner .btn,.header-inner button{min-height:48px !important;font-size:12px !important;font-weight:700 !important;}
+
+/* Engineering Records header block */
+.dashboard-toolbar{
+  min-height:92px !important;
+  padding:18px 20px !important;
+  background:#fff !important;
+  border:1px solid #b8c7dc !important;
+  border-top:4px solid #2f64c8 !important;
+  box-shadow:0 4px 14px rgba(18,38,66,.10) !important;
+}
+.section-heading h2{font-size:18px !important;font-weight:800 !important;color:#15243b !important;}
+.section-heading p{font-size:11px !important;color:#5d6b80 !important;}
+
+/* Category blocks */
+.cat-btn{
+  min-height:38px !important;padding:9px 14px !important;
+  font-size:11px !important;font-weight:700 !important;
+  color:#34445c !important;background:#e9eff8 !important;
+  border:1px solid #c2cee0 !important;border-radius:8px !important;
+}
+.cat-btn:hover{background:#dbe7fb !important;border-color:#6f96d5 !important;}
+.cat-btn.active,.cat-btn[aria-selected="true"]{
+  color:#fff !important;background:#245dcc !important;border-color:#245dcc !important;
+  box-shadow:0 3px 9px rgba(36,93,204,.28) !important;
+}
+
+/* Toolbar buttons directly below the record header */
+.dashboard-toolbar .btn{
+  min-height:38px !important;padding:8px 13px !important;
+  font-size:11px !important;font-weight:700 !important;
+}
