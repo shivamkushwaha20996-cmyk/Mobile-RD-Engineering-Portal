@@ -580,119 +580,45 @@ html,body{
   opacity:1;
 }
 
-/* V11 visible interaction animation */
-@keyframes portalCardIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes portalButtonPulse{0%{box-shadow:0 0 0 0 rgba(47,103,200,.35)}100%{box-shadow:0 0 0 10px rgba(47,103,200,0)}}
-@keyframes portalModalIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
-.record-enter{animation:portalCardIn .42s cubic-bezier(.2,.75,.25,1) both;animation-delay:var(--card-delay,0ms)}
-.cat-btn:active,.download-btn:active,.sidebar-action:active,.tool-btn:active,.header-icon-btn:active{animation:portalButtonPulse .32s ease-out}
-.model-picker-menu{animation:portalModalIn .18s ease-out both}
-.modal:not(.hidden) .modal-panel{animation:portalModalIn .22s cubic-bezier(.2,.75,.25,1) both}
-.admin-model-list{display:grid;gap:8px;max-height:190px;overflow:auto;margin:12px 0 18px}
-.admin-model-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;background:#f5f8fc;border:1px solid #d7e0eb;border-radius:9px}
-.admin-model-row div{display:flex;gap:10px;align-items:center}.admin-model-row strong{color:#245dcc}.admin-model-row span,.admin-model-row small{color:#586a80;font-size:11px}
-.model-admin-form{border-top:1px solid #d9e2ec;padding-top:16px}.model-admin-form h3{font-size:13px;font-weight:800;color:#20324b;margin-bottom:12px}
-@media(prefers-reduced-motion:reduce){.record-enter,.modal-panel,.model-picker-menu{animation:none!important}}
 
 /* =========================================================
-   V12 SMOOTHNESS PASS
-   Performance-friendly motion, softer interaction and less
-   layout thrashing. No data structure or workflow changes.
+   V14 STABLE SMOOTHNESS PASS
+   Deliberately conservative: no opacity-hidden cards, no layout
+   containment, no DOM ripple injection, and no render-time tricks.
    ========================================================= */
-:root{
-  --ease-smooth:cubic-bezier(.22,.61,.36,1);
-  --ease-spring:cubic-bezier(.2,.8,.2,1);
-}
-
+:root{--v14-ease:cubic-bezier(.22,.61,.36,1)}
 html{scroll-behavior:smooth}
-body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-
-/* Cards enter with a short, consistent stagger instead of querying
-   the DOM for every card while rendering. */
 .record-card{
-  opacity:1;
-  transform:translate3d(0,0,0);
-  backface-visibility:hidden;
-  will-change:transform,opacity;
-  transition:transform .22s var(--ease-smooth),box-shadow .22s var(--ease-smooth),border-color .18s ease;
+  animation:v14CardIn .24s var(--v14-ease) both;
+  transition:transform .16s var(--v14-ease),box-shadow .16s var(--v14-ease),border-color .16s ease;
 }
-.record-enter{
-  animation:portalCardSmooth .34s var(--ease-smooth) both;
-  animation-delay:var(--card-delay,0ms);
+@keyframes v14CardIn{
+  from{transform:translateY(5px)}
+  to{transform:translateY(0)}
 }
-@keyframes portalCardSmooth{
-  from{opacity:0;transform:translate3d(0,10px,0) scale(.992)}
-  to{opacity:1;transform:translate3d(0,0,0) scale(1)}
-}
-.record-card:hover{transform:translate3d(0,-3px,0)}
-
-/* Avoid expensive continuous animation on touch devices. */
-@media (hover:none){
-  .record-card:hover{transform:none;box-shadow:0 2px 5px rgba(15,23,42,.035)}
-}
-
-/* Smooth, readable controls. */
-button,.btn,.header-icon-btn,.cat-btn,.download-btn,.tool-btn,.text-action,
-.model-picker-search,.model-picker-option,.file-row,.recent-item{
+.record-card:hover{transform:translateY(-2px)}
+button,.btn,.header-icon-btn,.cat-btn,.download-btn,.tool-btn,.text-action,.model-picker-option,.recent-item{
   -webkit-tap-highlight-color:transparent;
-  transition:transform .16s var(--ease-smooth),box-shadow .18s var(--ease-smooth),
-              background-color .18s ease,border-color .18s ease,color .18s ease,opacity .18s ease;
-}
-button:focus-visible,.btn:focus-visible,.header-icon-btn:focus-visible,
-.cat-btn:focus-visible,.download-btn:focus-visible,.tool-btn:focus-visible,
-.model-picker-option:focus-visible{
-  outline:3px solid rgba(47,103,200,.22);
-  outline-offset:2px;
-}
-
-.cat-btn:hover,.download-btn:hover,.btn:hover,.header-icon-btn:hover,.tool-btn:hover{
-  transform:translate3d(0,-1px,0);
+  transition:transform .14s var(--v14-ease),box-shadow .14s var(--v14-ease),background-color .14s ease,border-color .14s ease,color .14s ease;
 }
 button:active,.btn:active,.header-icon-btn:active,.cat-btn:active,.download-btn:active,.tool-btn:active{
-  transform:translate3d(0,1px,0) scale(.985);
+  transform:translateY(1px) scale(.985);
 }
-
-/* Model picker opens without a heavy pop. */
-.model-picker-menu{
-  transform-origin:top right;
-  animation:portalPickerSmooth .16s var(--ease-spring) both;
-  will-change:transform,opacity;
+.cat-btn:hover,.download-btn:hover,.btn:hover,.header-icon-btn:hover,.tool-btn:hover{transform:translateY(-1px)}
+.model-picker-menu{animation:v14PickerIn .14s var(--v14-ease) both;transform-origin:top right}
+@keyframes v14PickerIn{from{opacity:.7;transform:translateY(-3px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal:not(.hidden) .modal-panel{animation:v14ModalIn .18s var(--v14-ease) both}
+@keyframes v14ModalIn{from{opacity:.8;transform:translateY(5px) scale(.995)}to{opacity:1;transform:none}}
+.runtime-error-banner{
+  position:fixed;left:12px;right:12px;top:12px;z-index:99999;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  padding:10px 13px;border-radius:10px;
+  background:#fff4e5;color:#7c3d00;border:1px solid #f2c27b;
+  box-shadow:0 8px 24px rgba(15,23,42,.14);font:700 12px Inter,system-ui,sans-serif;
 }
-@keyframes portalPickerSmooth{
-  from{opacity:0;transform:translate3d(0,-4px,0) scale(.985)}
-  to{opacity:1;transform:translate3d(0,0,0) scale(1)}
-}
-.model-picker-option{transform:translateZ(0)}
-.model-picker-option:hover{transform:translate3d(2px,0,0)}
-
-/* File rows feel responsive without jumping the card. */
-.file-row{transform:translateZ(0)}
-.file-row:hover{transform:translate3d(2px,0,0);box-shadow:0 3px 10px rgba(30,55,85,.06)}
-
-/* Toast/modal motion is short enough to feel immediate. */
-.modal:not(.hidden) .modal-panel{animation:portalModalSmooth .2s var(--ease-spring) both}
-@keyframes portalModalSmooth{
-  from{opacity:0;transform:translate3d(0,8px,0) scale(.985)}
-  to{opacity:1;transform:translate3d(0,0,0) scale(1)}
-}
-
-/* Reduce paint cost on large workspaces. */
-.records-grid{contain:layout style}
-.record-card{contain:layout paint}
-
-/* Softer active category state. */
-.cat-btn.active{transform:translateZ(0);}
-.cat-btn.active i{animation:portalIconSettle .24s var(--ease-spring) both}
-@keyframes portalIconSettle{from{transform:scale(.88) rotate(-5deg)}to{transform:scale(1.08) rotate(0)}}
-
-/* Respect the user's accessibility preference and browser setting. */
-@media (prefers-reduced-motion:reduce){
+.runtime-error-banner span{font-weight:500}
+@media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{
-    animation-duration:.001ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.001ms!important;
-    scroll-behavior:auto!important;
-  }
+  .record-card,.model-picker-menu,.modal:not(.hidden) .modal-panel{animation:none!important}
+  button,.btn,.header-icon-btn,.cat-btn,.download-btn,.tool-btn,.text-action,.model-picker-option,.recent-item,.record-card{transition:none!important}
 }
-\n\n/* =========================================================\n   V13 VISIBILITY + SMOOTH RENDER FIX\n   Ensures dynamically-rendered records are always painted.\n   ========================================================= */\n#cardsGrid.records-grid{\n  display:grid !important;\n  visibility:visible !important;\n  opacity:1 !important;\n  min-height:120px;\n  width:100%;\n  position:relative;\n  isolation:isolate;\n  contain:none !important;\n}\n#cardsGrid .record-card{\n  display:flex !important;\n  visibility:visible !important;\n  opacity:1 !important;\n  position:relative;\n  z-index:1;\n  contain:none !important;\n  transform:translate3d(0,0,0);\n}\n/* Animate only after the first paint, preventing blank cards on slow/mobile browsers. */\n.portal-ready #cardsGrid .record-card.record-enter{\n  animation:portalCardSafe .32s var(--ease-smooth) both;\n  animation-delay:var(--card-delay,0ms);\n}\n@keyframes portalCardSafe{\n  from{opacity:.01;transform:translate3d(0,8px,0) scale(.995)}\n  to{opacity:1;transform:translate3d(0,0,0) scale(1)}\n}\n/* Keep the dashboard usable on phone browsers too; laptop layout remains unchanged. */\n@media(max-width:900px){\n  .workspace-shell{display:block !important;min-height:0 !important;}\n  .model-sidebar{width:100% !important;position:relative !important;top:auto !important;height:auto !important;}\n  .workspace-shell>.app-container{width:100% !important;min-width:0 !important;}\n  #cardsGrid.records-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}\n}\n@media(max-width:620px){\n  #cardsGrid.records-grid{grid-template-columns:1fr !important;}\n  .record-card{min-width:0 !important;}\n}\n@media(prefers-reduced-motion:reduce){\n  .portal-ready #cardsGrid .record-card.record-enter{animation:none !important;}\n}\n
