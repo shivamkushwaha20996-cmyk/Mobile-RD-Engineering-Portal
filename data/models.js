@@ -2,14 +2,14 @@ export const MODEL_ORDER = ["A576","A376","A076","A075","A085","S741"];
 export const RECORD_ORDER = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S"];
 
 export const CATEGORIES = [
-  { key:"all", label:"All" },
-  { key:"Block Diagram", label:"Block Diagram" },
-  { key:"Schematics", label:"Circuit & SOC" },
-  { key:"RF & Wireless", label:"RF & Antenna" },
-  { key:"Process & Tech", label:"Process & OPST" },
-  { key:"Quality & SW", label:"Quality & SW" },
-  { key:"Key Parts", label:"Key Parts" },
-  { key:"General", label:"Specs & Team" }
+  { key:"all", label:"All", icon:"fa-layer-group" },
+  { key:"Block Diagram", label:"Block Diagram", icon:"fa-diagram-project" },
+  { key:"Schematics", label:"Circuit & SOC", icon:"fa-microchip" },
+  { key:"RF & Wireless", label:"RF & Antenna", icon:"fa-tower-broadcast" },
+  { key:"Process & Tech", label:"Process & OPST", icon:"fa-gears" },
+  { key:"Quality & SW", label:"Quality & SW", icon:"fa-shield-halved" },
+  { key:"Key Parts", label:"Key Parts", icon:"fa-cubes" },
+  { key:"General", label:"Specs & Team", icon:"fa-clipboard-list" }
 ];
 
 export const CATEGORY_COLORS = {
