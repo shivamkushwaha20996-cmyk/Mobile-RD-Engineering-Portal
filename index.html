@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mobile R&D Engineering Portal">
-  <title>Mobile R&D Engineering Portal</title>
+  <title>Mobile R&D Engineering Portal — v14 Stable</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/dashboard.css?v=14">
 </head>
 
 <body class="min-h-screen bg-slate-100 text-slate-800 antialiased">
@@ -129,7 +129,7 @@
   <footer class="app-footer">
     <div class="app-container footer-inner">
       <div><span class="online-dot"></span> Mobile R&D Engineering Portal</div>
-      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v13.0</span></div>
+      <div class="mono">IndexedDB • Local Repository • <span id="appVersion">v8.0</span></div>
     </div>
   </footer>
 
@@ -150,33 +150,6 @@
           <button type="button" class="btn btn-light" data-close="loginModal">Cancel</button>
           <button class="btn btn-dark" type="submit">Authenticate</button>
         </div>
-      </form>
-    </section>
-  </div>
-
-
-  <!-- Admin Model Management -->
-  <div id="modelAdminModal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <section class="modal-panel modal-lg model-admin-panel" role="dialog" aria-modal="true" aria-labelledby="modelAdminTitle">
-      <button class="modal-close" data-close="modelAdminModal"><i class="fa-solid fa-xmark"></i></button>
-      <div class="modal-heading">
-        <div class="modal-icon cyan-bg"><i class="fa-solid fa-mobile-screen-button"></i></div>
-        <div><h2 id="modelAdminTitle">Model Management</h2><p class="modal-description">Add a new model without editing the source code. It will immediately appear in Model Selection on this browser.</p></div>
-      </div>
-      <div id="modelAdminList" class="admin-model-list"></div>
-      <form id="newModelForm" class="model-admin-form">
-        <h3><i class="fa-solid fa-plus"></i> Add New Model</h3>
-        <div class="form-grid-2">
-          <div><label class="form-label">Model Code *</label><input id="newModelCode" class="form-input" placeholder="e.g. A900" required></div>
-          <div><label class="form-label">Model Name *</label><input id="newModelName" class="form-input" placeholder="e.g. Galaxy A900" required></div>
-          <div><label class="form-label">Processor</label><input id="newModelProcessor" class="form-input" placeholder="Processor / AP"></div>
-          <div><label class="form-label">Modem / RF</label><input id="newModelModem" class="form-input" placeholder="Modem / RF"></div>
-          <div><label class="form-label">SW Build</label><input id="newModelSw" class="form-input" placeholder="Software build"></div>
-          <div><label class="form-label">HQ Lead</label><input id="newModelLead" class="form-input" placeholder="HQ lead"></div>
-        </div>
-        <p class="help-text"><i class="fa-solid fa-circle-info"></i> The new model starts with the existing A–S engineering record structure and can then receive its own uploaded files.</p>
-        <div class="modal-actions"><button type="button" class="btn btn-light" data-close="modelAdminModal">Cancel</button><button class="btn btn-cyan" type="submit"><i class="fa-solid fa-plus"></i> Add Model</button></div>
       </form>
     </section>
   </div>
@@ -256,6 +229,6 @@
     </section>
   </div>
 
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=14"></script>
 </body>
 </html>

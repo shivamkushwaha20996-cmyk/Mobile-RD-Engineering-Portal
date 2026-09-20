@@ -135,3 +135,7 @@ The existing A→S records and model data remain unchanged. UI enhancements can 
 - Removed record selection / bulk-select UI
 - Added collapsible sidebar
 - Existing A→S data and model records are preserved
+
+
+## v14 Stable
+This build is based on the last stable v10 visual build. The smoothness pass is intentionally conservative and preserves the existing click/event architecture. CSS and JavaScript use a v14 cache-busting query so GitHub Pages browsers fetch the updated files.
