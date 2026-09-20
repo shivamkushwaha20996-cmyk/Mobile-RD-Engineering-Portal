@@ -408,3 +408,174 @@ input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(47,100,200,.13
   min-height:38px !important;padding:8px 13px !important;
   font-size:11px !important;font-weight:700 !important;
 }
+
+/* =========================================================
+   V10 FINAL VISUAL POLISH
+   Lighter, softer dashboard + attractive category tabs.
+   No record/data/functionality changes.
+   ========================================================= */
+
+:root{
+  --pleasant-bg:#f3f6fa;
+  --pleasant-surface:#ffffff;
+  --pleasant-surface-2:#f8fafc;
+  --pleasant-border:#d7e0eb;
+  --pleasant-text:#243247;
+  --pleasant-muted:#65748a;
+  --pleasant-blue:#2f67c8;
+}
+
+html,body{
+  background:var(--pleasant-bg) !important;
+  color:var(--pleasant-text) !important;
+}
+
+.workspace-shell{
+  background:linear-gradient(180deg,#f5f8fc 0%,#edf2f7 100%) !important;
+}
+
+.workspace-shell>.app-container{
+  background:transparent !important;
+}
+
+.dashboard-toolbar{
+  background:rgba(255,255,255,.98) !important;
+  border:1px solid #d5dfeb !important;
+  border-top:4px solid #3b6fc6 !important;
+  box-shadow:0 5px 18px rgba(35,55,80,.08) !important;
+}
+
+.record-card{
+  background:#fff !important;
+  border-color:#d6e0eb !important;
+  box-shadow:0 3px 10px rgba(30,48,72,.055) !important;
+}
+
+.record-card:hover{
+  box-shadow:0 10px 24px rgba(30,48,72,.12) !important;
+}
+
+.file-row{
+  background:#f8fafc !important;
+  border-color:#dce4ed !important;
+}
+
+.tag{
+  background:#eef3f8 !important;
+  border-color:#d9e2ec !important;
+  color:#4b5d73 !important;
+}
+
+.recent-panel{
+  background:#fff !important;
+  border-color:#d6e0eb !important;
+  box-shadow:0 4px 14px rgba(30,48,72,.055) !important;
+}
+
+/* Softer sidebar while keeping clear separation */
+.model-sidebar{
+  background:linear-gradient(180deg,#102443 0%,#162d4c 100%) !important;
+  border-right:1px solid #29476b !important;
+}
+
+/* Attractive category tabs */
+.category-tabs{
+  gap:8px !important;
+  padding:4px 0 !important;
+}
+
+.cat-btn{
+  position:relative !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:7px !important;
+  min-height:42px !important;
+  padding:9px 13px !important;
+  border-radius:10px !important;
+  background:#f1f5f9 !important;
+  border:1px solid #d3deea !important;
+  color:#405169 !important;
+  font-size:11px !important;
+  font-weight:750 !important;
+  box-shadow:0 2px 5px rgba(30,48,72,.045) !important;
+  overflow:hidden !important;
+}
+
+.cat-btn::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#8ea0b7;
+  box-shadow:0 0 0 3px rgba(142,160,183,.12);
+  flex:0 0 auto;
+}
+
+.cat-btn:nth-child(1)::before{background:#64748b;box-shadow:0 0 0 3px rgba(100,116,139,.12)}
+.cat-btn:nth-child(2)::before{background:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+.cat-btn:nth-child(3)::before{background:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+.cat-btn:nth-child(4)::before{background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.cat-btn:nth-child(5)::before{background:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+.cat-btn:nth-child(6)::before{background:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+.cat-btn:nth-child(7)::before{background:#a855f7;box-shadow:0 0 0 3px rgba(168,85,247,.12)}
+.cat-btn:nth-child(8)::before{background:#64748b;box-shadow:0 0 0 3px rgba(100,116,139,.12)}
+
+.cat-btn:hover{
+  transform:translateY(-2px) !important;
+  background:#fff !important;
+  border-color:#9fb6d2 !important;
+  box-shadow:0 6px 14px rgba(45,75,110,.10) !important;
+}
+
+.cat-btn.active,
+.cat-btn[aria-selected="true"]{
+  color:#fff !important;
+  background:linear-gradient(135deg,#2f67c8,#3f78d8) !important;
+  border-color:#2f67c8 !important;
+  box-shadow:0 6px 15px rgba(47,103,200,.25) !important;
+}
+
+.cat-btn.active::before,
+.cat-btn[aria-selected="true"]::before{
+  background:#fff !important;
+  box-shadow:0 0 0 3px rgba(255,255,255,.18) !important;
+}
+
+/* Make section icon and title more visible */
+.section-icon{
+  width:40px !important;
+  height:40px !important;
+  border-radius:11px !important;
+  background:#e8f0fc !important;
+  color:#2f67c8 !important;
+  box-shadow:inset 0 0 0 1px #d2e0f2 !important;
+}
+
+.section-heading h2{
+  color:#1d2d43 !important;
+  font-size:18px !important;
+}
+
+.section-heading p{
+  color:#66768b !important;
+}
+
+/* Keep dark header as a visual anchor */
+.app-header{
+  background:linear-gradient(180deg,#0b1d38 0%,#132c4e 100%) !important;
+}
+
+.cat-btn i{
+  font-size:13px !important;
+  opacity:.92;
+  transition:transform .18s ease,opacity .18s ease;
+}
+.cat-btn:hover i{
+  transform:scale(1.12) rotate(-3deg);
+  opacity:1;
+}
+.cat-btn.active i{
+  transform:scale(1.08);
+  opacity:1;
+}
