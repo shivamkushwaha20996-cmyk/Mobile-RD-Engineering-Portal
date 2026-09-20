@@ -154,6 +154,33 @@
     </section>
   </div>
 
+
+  <!-- Admin Model Management -->
+  <div id="modelAdminModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-lg model-admin-panel" role="dialog" aria-modal="true" aria-labelledby="modelAdminTitle">
+      <button class="modal-close" data-close="modelAdminModal"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-heading">
+        <div class="modal-icon cyan-bg"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <div><h2 id="modelAdminTitle">Model Management</h2><p class="modal-description">Add a new model without editing the source code. It will immediately appear in Model Selection on this browser.</p></div>
+      </div>
+      <div id="modelAdminList" class="admin-model-list"></div>
+      <form id="newModelForm" class="model-admin-form">
+        <h3><i class="fa-solid fa-plus"></i> Add New Model</h3>
+        <div class="form-grid-2">
+          <div><label class="form-label">Model Code *</label><input id="newModelCode" class="form-input" placeholder="e.g. A900" required></div>
+          <div><label class="form-label">Model Name *</label><input id="newModelName" class="form-input" placeholder="e.g. Galaxy A900" required></div>
+          <div><label class="form-label">Processor</label><input id="newModelProcessor" class="form-input" placeholder="Processor / AP"></div>
+          <div><label class="form-label">Modem / RF</label><input id="newModelModem" class="form-input" placeholder="Modem / RF"></div>
+          <div><label class="form-label">SW Build</label><input id="newModelSw" class="form-input" placeholder="Software build"></div>
+          <div><label class="form-label">HQ Lead</label><input id="newModelLead" class="form-input" placeholder="HQ lead"></div>
+        </div>
+        <p class="help-text"><i class="fa-solid fa-circle-info"></i> The new model starts with the existing A–S engineering record structure and can then receive its own uploaded files.</p>
+        <div class="modal-actions"><button type="button" class="btn btn-light" data-close="modelAdminModal">Cancel</button><button class="btn btn-cyan" type="submit"><i class="fa-solid fa-plus"></i> Add Model</button></div>
+      </form>
+    </section>
+  </div>
+
   <!-- Upload -->
   <div id="uploadModal" class="modal hidden">
     <div class="modal-backdrop"></div>
