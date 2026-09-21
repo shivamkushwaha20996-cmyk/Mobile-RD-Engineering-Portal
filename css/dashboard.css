@@ -1057,3 +1057,49 @@ body[data-theme="dark"] .file-center-search,body[data-theme="dark"] .file-center
 @media(max-width:1200px) and (min-width:901px){.records-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}}
 .records-grid .record-card[data-record="O"]{grid-column:span 2 !important;}
 @media(max-width:900px){.records-grid .record-card[data-record="O"]{grid-column:span 1 !important;}}
+
+
+/* V40 FINAL: global accent + permanently visible Active Model */
+:root{--accent:#0891b2;--accent-soft:#ecfeff;--accent-border:#a5f3fc}
+body[data-accent="cyan"]{--accent:#0891b2;--accent-soft:#ecfeff;--accent-border:#a5f3fc}
+body[data-accent="blue"]{--accent:#2563eb;--accent-soft:#eff6ff;--accent-border:#bfdbfe}
+body[data-accent="violet"]{--accent:#7c3aed;--accent-soft:#f5f3ff;--accent-border:#ddd6fe}
+body[data-accent="emerald"]{--accent:#059669;--accent-soft:#ecfdf5;--accent-border:#a7f3d0}
+body[data-accent="amber"]{--accent:#d97706;--accent-soft:#fffbeb;--accent-border:#fde68a}
+body[data-accent="rose"]{--accent:#e11d48;--accent-soft:#fff1f2;--accent-border:#fecdd3}
+body[data-accent="orange"]{--accent:#ea580c;--accent-soft:#fff7ed;--accent-border:#fed7aa}
+body[data-accent="indigo"]{--accent:#4f46e5;--accent-soft:#eef2ff;--accent-border:#c7d2fe}
+body[data-accent="teal"]{--accent:#0d9488;--accent-soft:#f0fdfa;--accent-border:#99f6e4}
+body[data-accent="fuchsia"]{--accent:#c026d3;--accent-soft:#fdf4ff;--accent-border:#f5d0fe}
+body[data-accent="sky"]{--accent:#0284c7;--accent-soft:#f0f9ff;--accent-border:#bae6fd}
+
+/* Main dashboard accent surfaces */
+.app-header{border-bottom-color:var(--accent)!important}
+.brand-mark{color:var(--accent)!important;border-color:var(--accent)!important}
+.env-badge{color:var(--accent)!important;border-color:var(--accent)!important;background:var(--accent-soft)!important}
+.header-search input:focus,.header-search:focus-within,.form-input:focus,.settings-select:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--accent-soft)!important}
+.dashboard-toolbar{border-top-color:var(--accent)!important}
+.section-icon{background:var(--accent)!important}
+.cat-btn.active,.cat-btn[aria-selected="true"]{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important;box-shadow:0 3px 9px var(--accent-soft)!important}
+.cat-btn:hover{border-color:var(--accent)!important;color:var(--accent)!important}
+.tool-btn:hover,.tool-btn.active{border-color:var(--accent)!important;color:var(--accent)!important;background:var(--accent-soft)!important}
+.selection-bar{background:var(--accent-soft)!important;border-color:var(--accent-border)!important}
+.record-card .card-footer-actions .text-action:hover{color:var(--accent)!important}
+.record-card .record-key{color:var(--accent)!important}
+.file-summary-heading h3 i,.summary-cell-top strong{color:var(--accent)!important}
+.drop-zone:hover,.drop-zone.drag-active{border-color:var(--accent)!important;background:var(--accent-soft)!important}
+.drop-zone>i{color:var(--accent)!important}
+.upload-progress>div{background:var(--accent)!important}
+.btn-cyan,.btn-accent{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}
+.sidebar-action:hover{border-color:var(--accent)!important}
+.sidebar-action i,.sidebar-metric span i,.model-nav-code{color:var(--accent)!important}
+.model-nav-item.active{border-color:var(--accent)!important;box-shadow:inset 3px 0 var(--accent)!important;background:var(--accent-soft)!important}
+
+/* Keep the Active Model area locked while the card list scrolls.
+   The sidebar itself is sticky; its top Active Model block is sticky inside it. */
+.model-sidebar{position:sticky!important;top:72px!important;height:calc(100vh - 72px)!important;overflow-y:auto!important;overflow-x:hidden!important;align-self:start!important}
+.sidebar-top{position:sticky!important;top:0!important;z-index:30!important;background:#0a1422!important;padding-top:8px!important}
+@media(max-width:900px){
+  .model-sidebar{position:sticky!important;top:64px!important;height:auto!important;max-height:calc(100vh - 64px)!important;overflow-y:auto!important}
+  .sidebar-top{position:sticky!important;top:0!important;z-index:30!important;background:#0a1422!important}
+}
