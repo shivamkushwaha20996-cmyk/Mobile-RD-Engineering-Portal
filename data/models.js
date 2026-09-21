@@ -13,7 +13,7 @@ export const CATEGORIES = [
 ];
 
 export const CATEGORY_COLORS = {
-  "Block Diagram":"#7c3aed",
+  "Block Diagram":"#0d9488",
   "Schematics":"#2563eb",
   "RF & Wireless":"#059669",
   "Process & Tech":"#d97706",
@@ -23,39 +23,39 @@ export const CATEGORY_COLORS = {
 };
 
 const base = {
-  A:{title:"Block Diagram",category:"Block Diagram",icon:"fa-sitemap",tags:["AP Block Diagram","RF Block Diagram"],subItems:[
+  A:A:{title:"Block Diagram",category:"Block Diagram",icon:"fa-sitemap",tags:["AP Block Diagram","RF Block Diagram"],subItems:[
     {name:"AP Block Diagram",filename:"A576_AP_Block_Diagram.pdf",size:"21.4 MB"},
     {name:"RF Block Diagram",filename:"A576_RF_Block_Diagram.pdf",size:"28.7 MB"}]},
-  B:{title:"Circuit Diagram",category:"Schematics",icon:"fa-diagram-project",tags:["Schematic","Main PBA","SUB PBA"],subItems:[
+  B:B:{title:"Circuit Diagram",category:"Schematics",icon:"fa-diagram-project",tags:["Schematic","Main PBA","SUB PBA"],subItems:[
     {name:"Main PBA",filename:"A576_Main_PBA_Schematic.pdf",size:"68.5 MB"},
     {name:"SUB PBA",filename:"A576_Sub_PBA_Audio_Charge.pdf",size:"18.2 MB"}]},
-  C:{title:"SOC Table",category:"Schematics",icon:"fa-microchip",tags:["Battery Percentage vs Voltage"],filename:"A576_SOC_Pin_Table.xlsx",size:"28.3 MB"},
-  D:{title:"MIPI Table",category:"Schematics",icon:"fa-bars-staggered",tags:[],filename:"A576_MIPI_Config.xlsx",size:"12.7 MB"},
-  E:{title:"RF Port Map",category:"RF & Wireless",icon:"fa-network-wired",tags:["RF Port Mapping"],filename:"A576_RF_Port_Mapping.pdf",size:"58.0 MB"},
-  F:{title:"Antenna Structure",category:"RF & Wireless",icon:"fa-tower-broadcast",tags:["MIMO LTE NR 2G WCDMA"],filename:"A576_Antenna_3D_Layout.dwg",size:"84.2 MB"},
-  G:{title:"Main and Roaming Bands Details",category:"RF & Wireless",icon:"fa-earth-americas",tags:["5G NR","LTE FDD/TDD","Global Bands"],filename:"A576_Bands_Master.xlsx",size:"9.2 MB"},
-  H:{title:"VSWR Graph",category:"RF & Wireless",icon:"fa-chart-line",tags:["VSWR","Return Loss","S-Parameter"],filename:"VSWR_Graph.pdf",size:"RF graph"},
-  I:{title:"Process Flow Chart",category:"Process & Tech",icon:"fa-arrows-split-up-and-left",tags:["Workflow","Assembly Nodes"],subItems:[
+  C:C:{title:"SOC Table",category:"Schematics",icon:"fa-microchip",tags:["Battery Percentage vs Voltage"],filename:"A576_SOC_Pin_Table.xlsx",size:"28.3 MB"},
+  D:D:{title:"MIPI Table",category:"Schematics",icon:"fa-bars-staggered",tags:[],filename:"A576_MIPI_Config.xlsx",size:"12.7 MB"},
+  E:E:{title:"RF Port Map",category:"RF & Wireless",icon:"fa-network-wired",tags:["RF Port Mapping"],filename:"A576_RF_Port_Mapping.pdf",size:"58.0 MB"},
+  F:F:{title:"Antenna Structure",category:"RF & Wireless",icon:"fa-tower-broadcast",tags:["MIMO LTE NR 2G WCDMA"],filename:"A576_Antenna_3D_Layout.dwg",size:"84.2 MB"},
+  G:G:{title:"Main and Roaming Bands Details",category:"RF & Wireless",icon:"fa-earth-americas",tags:["5G NR","LTE FDD/TDD","Global Bands"],filename:"A576_Bands_Master.xlsx",size:"9.2 MB"},
+  H:H:{title:"VSWR Graph",category:"RF & Wireless",icon:"fa-chart-line",tags:["VSWR","Return Loss","S-Parameter"],filename:"VSWR_Graph.pdf",size:"RF graph"},
+  I:I:{title:"Process Flow Chart",category:"Process & Tech",icon:"fa-arrows-split-up-and-left",tags:["Workflow","Assembly Nodes"],subItems:[
     {name:"Sub Assembly",filename:"A576_Sub_Assembly_Flow.xlsx",size:"8.4 MB"},
     {name:"Main Line",filename:"A576_Main_Line_SOP.xlsx",size:"14.1 MB"}]},
-  J:{title:"New Technology Introduced",category:"Process & Tech",icon:"fa-wand-magic-sparkles",tags:["Antenna Type","Graphite Layer","PMIC"],filename:"A576_New_Tech_Brief.pdf",size:"22.6 MB"},
-  K:{title:"OPST Sheet",category:"Process & Tech",icon:"fa-clipboard-check",tags:["Open Short Test"],filename:"A576_OPST_Master.xlsx",size:"11.5 MB"},
-  L:{title:"Base Model Defect History",category:"Defect summary & SW process",icon:"fa-bug",tags:["Predecessor Failures","Defect Log"],filename:"A576_Base_Defects_RCA.xlsx",size:"31.2 MB"},
-  M:{title:"Other Subsidiary Defect Details",category:"Defect summary & SW process",icon:"fa-triangle-exclamation",tags:["Korea Office / SEVT / SEV Dev Stage Defects"],filename:"A576_Subsidiary_Defects.xlsx",size:"19.7 MB"},
-  N:{title:"SW Log Process",category:"Defect summary & SW process",icon:"fa-terminal",tags:["Modem CP Dump","Kernel Panic","UART Guide"],filename:"A576_SW_Log_Guide.pdf",size:"17.4 MB"},
-  O:{title:"Key Parts Details",category:"Key Parts",icon:"fa-puzzle-piece",tags:["Vendor Specs","Datasheets"],subItems:[
+  J:J:{title:"New Technology Introduced",category:"Process & Tech",icon:"fa-wand-magic-sparkles",tags:["Antenna Type","Graphite Layer","PMIC"],filename:"A576_New_Tech_Brief.pdf",size:"22.6 MB"},
+  K:K:{title:"OPST Sheet",category:"Process & Tech",icon:"fa-clipboard-check",tags:["Open Short Test"],filename:"A576_OPST_Master.xlsx",size:"11.5 MB"},
+  L:L:{title:"Base Model Defect History",category:"Defect summary & SW process",icon:"fa-bug",tags:["Predecessor Failures","Defect Log"],filename:"A576_Base_Defects_RCA.xlsx",size:"31.2 MB"},
+  M:M:{title:"Other Subsidiary Defect Details",category:"Defect summary & SW process",icon:"fa-triangle-exclamation",tags:["Korea Office / SEVT / SEV Dev Stage Defects"],filename:"A576_Subsidiary_Defects.xlsx",size:"19.7 MB"},
+  N:N:{title:"SW Log Process",category:"Defect summary & SW process",icon:"fa-terminal",tags:["Modem CP Dump","Kernel Panic","UART Guide"],filename:"A576_SW_Log_Guide.pdf",size:"17.4 MB"},
+  O:O:{title:"Key Parts Details",category:"Key Parts",icon:"fa-puzzle-piece",tags:["Vendor Specs","Datasheets"],subItems:[
     {name:"Display",filename:"A576_Display_Spec.pdf",size:"54.2 MB"},
     {name:"Camera",filename:"A576_Camera_OIS_Spec.pdf",size:"62.8 MB"},
     {name:"Speaker",filename:"A576_Speaker_Data.pdf",size:"14.6 MB"},
     {name:"Battery",filename:"A576_Battery_Cert.pdf",size:"21.3 MB"},
     {name:"Front",filename:"A576_Front_Glass.pdf",size:"16.7 MB"},
     {name:"Sensor",filename:"A576_6Axis_Sensor.pdf",size:"18.9 MB"}]},
-  P:{title:"Basic Model Details",category:"Specification",icon:"fa-circle-info",tags:["Dimensions","Battery Spec"],filename:"A576_Basic_Spec.pdf",size:"12.4 MB"},
-  Q:{title:"Common and Exclusive Part Details",category:"Specification",icon:"fa-cubes",tags:["BOM Compare","Exclusive Part"],filename:"A576_Part_Matrix.xlsx",size:"15.8 MB"},
-  R:{title:"Work Specification",category:"Specification",icon:"fa-file-lines",tags:["Assembly Method","Testing Method"],filename:"A576_Work_Specification.pdf",size:"14.8 MB"},
-  S:{title:"Korea Member Details",category:"Specification",icon:"fa-id-card",tags:["Korea Member Stage Wise"],filename:"A576_Korea_HQ_Roster.xlsx",size:"4.1 MB"},
-  T:{title:"Hardware Checklist",category:"Specification",icon:"fa-clipboard-check",tags:["Hardware verification","Pre-S sign-off"],filename:"",size:""},
-  U:{title:"Common",category:"Specification",icon:"fa-folder-tree",tags:["ECN Notices","Engineering Archive"],filename:"A576_Common_Archive.zip",size:"95.0 MB"}
+  P:P:{title:"Basic Model Details",category:"Specification",icon:"fa-circle-info",tags:["Dimensions","Battery Spec"],filename:"A576_Basic_Spec.pdf",size:"12.4 MB"},
+  Q:Q:{title:"Common and Exclusive Part Details",category:"Specification",icon:"fa-cubes",tags:["BOM Compare","Exclusive Part"],filename:"A576_Part_Matrix.xlsx",size:"15.8 MB"},
+  R:R:{title:"Work Specification",category:"Specification",icon:"fa-file-lines",tags:["Assembly Method","Testing Method"],filename:"A576_Work_Specification.pdf",size:"14.8 MB"},
+  S:S:{title:"Korea Member Details",category:"Specification",icon:"fa-id-card",tags:["Korea Member Stage Wise"],filename:"A576_Korea_HQ_Roster.xlsx",size:"4.1 MB"},
+  T:T:{title:"Hardware Checklist",category:"Specification",icon:"fa-clipboard-check",tags:["Hardware verification","Pre-S sign-off"],filename:"",size:""},
+  U:U:{title:"Common",category:"Specification",icon:"fa-folder-tree",tags:["ECN Notices","Engineering Archive"],filename:"A576_Common_Archive.zip",size:"95.0 MB"}
 };
 
 const meta = {
