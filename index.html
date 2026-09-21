@@ -34,7 +34,6 @@
         <div class="header-search">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input id="searchInput" type="search" placeholder="Search records, files, tags..." autocomplete="off" aria-label="Search records, files, tags">
-          <kbd class="search-kbd">Ctrl K</kbd>
           <button id="clearSearchBtn" class="icon-btn hidden" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
@@ -204,12 +203,17 @@
       <div class="settings-list">
         <div class="settings-section-title">APPEARANCE</div>
         <label class="setting-row"><span><strong>Theme</strong><small>Switch between light, dark, or system appearance.</small></span><select id="themeSelect" class="settings-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></label>
-        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option></select></label>
+        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option><option value="rose">Rose</option><option value="orange">Orange</option><option value="indigo">Indigo</option><option value="teal">Teal</option><option value="fuchsia">Fuchsia</option><option value="sky">Sky</option></select></label>
         <label class="setting-row"><span><strong>Card density</strong><small>Choose comfortable or compact record spacing.</small></span><select id="densitySelect" class="settings-select"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label>
         <label class="setting-row"><span><strong>Animations</strong><small>Enable card and interface motion.</small></span><input id="motionToggle" type="checkbox" checked></label>
         <div class="settings-section-title">WORKSPACE</div>
         <div class="setting-info"><i class="fa-solid fa-star"></i><span>Favorites and last-viewed model are saved locally in this browser.</span></div>
         <div class="shortcut-grid"><span><kbd>Ctrl K</kbd> Focus search</span><span><kbd>/</kbd> Focus search</span><span><kbd>F</kbd> Fullscreen</span><span><kbd>Esc</kbd> Close panels</span></div>
+      </div>
+
+      <div class="modal-actions settings-modal-actions">
+        <button type="button" class="btn btn-light" id="settingsCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-cyan" id="settingsOkBtn"><i class="fa-solid fa-check"></i> OK</button>
       </div>
 
       <div class="settings-danger">
