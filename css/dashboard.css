@@ -598,3 +598,462 @@ html,body{
 body[data-theme="dark"] .file-center-search,body[data-theme="dark"] .file-center-row,body[data-theme="dark"] .file-center-recent,body[data-theme="dark"] .file-preview-body{background:#111b2a;border-color:#2a3b52}body[data-theme="dark"] .file-center-search input,body[data-theme="dark"] .file-center-main strong,body[data-theme="dark"] .file-center-side-title,body[data-theme="dark"] .file-center-recent-item strong,body[data-theme="dark"] .file-preview-text{color:#e5edf7}body[data-theme="dark"] .file-center-main span,body[data-theme="dark"] .file-center-recent-item small,body[data-theme="dark"] .file-center-count{color:#9aabc0}body[data-theme="dark"] .fc-action{background:#172437;border-color:#33465f;color:#c7d4e5}
 @media(max-width:850px){.file-center-toolbar{grid-template-columns:1fr 1fr}.file-center-count{justify-self:start}.file-center-layout{grid-template-columns:1fr}.file-center-recent{order:-1}.file-center-row{grid-template-columns:38px minmax(0,1fr) auto}}
 @media(max-width:560px){.file-center-toolbar{grid-template-columns:1fr}.file-center-row{grid-template-columns:38px minmax(0,1fr);}.file-center-actions{grid-column:2}.file-center-panel,.file-preview-panel{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}.file-preview-body{min-height:280px}.file-preview-frame,.file-preview-text{height:55vh}}
+
+/* =========================================================
+   V19 DESKTOP RECORDS OVERLAP FIX
+   Layout-only override. Existing data and JavaScript untouched.
+   ========================================================= */
+@media (min-width: 901px){
+  .workspace-shell{
+    display:grid !important;
+    grid-template-columns:var(--sidebar-w) minmax(0,1fr) !important;
+    align-items:start !important;
+    min-width:0 !important;
+  }
+
+  .workspace-shell>.app-container{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    overflow:visible !important;
+  }
+
+  /* Keep Engineering Records header from squeezing categories and status
+     into the same horizontal row. */
+  .dashboard-toolbar{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-auto-rows:auto !important;
+    align-items:start !important;
+    min-height:0 !important;
+    width:100% !important;
+    overflow:visible !important;
+  }
+
+  .toolbar-main{
+    display:grid !important;
+    grid-template-columns:max-content minmax(0,1fr) !important;
+    align-items:center !important;
+    min-width:0 !important;
+    width:100% !important;
+  }
+
+  .category-tabs{
+    min-width:0 !important;
+    max-width:100% !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    flex-wrap:nowrap !important;
+    scrollbar-width:thin;
+    padding-bottom:4px !important;
+  }
+
+  .toolbar-status{
+    width:100% !important;
+    min-width:0 !important;
+    justify-content:flex-end !important;
+    overflow:hidden !important;
+  }
+
+  .data-tools{
+    width:100% !important;
+    min-width:0 !important;
+    flex-wrap:wrap !important;
+  }
+
+  .tool-group{
+    min-width:0 !important;
+    flex-wrap:wrap !important;
+  }
+
+  .records-grid{
+    width:100% !important;
+    min-width:0 !important;
+    align-items:stretch !important;
+    grid-auto-flow:row !important;
+  }
+
+  .record-card{
+    min-width:0 !important;
+    width:100% !important;
+    height:auto !important;
+    min-height:196px !important;
+  }
+
+  .record-body,
+  .record-header,
+  .record-title-wrap,
+  .card-actions,
+  .file-area,
+  .card-footer-actions{
+    min-width:0 !important;
+  }
+
+  .record-title-wrap > .min-w-0,
+  .file-row > .min-w-0{
+    min-width:0 !important;
+  }
+
+  .record-title{
+    overflow-wrap:anywhere;
+  }
+
+  .category-label{
+    max-width:110px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .file-row{
+    min-width:0 !important;
+  }
+
+  .file-row .download-btn{
+    flex:0 0 auto;
+  }
+}
+
+/* At laptop widths, use 3 columns before switching to the 4/5-column grid. */
+@media (min-width: 901px) and (max-width: 1249px){
+  .records-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+}
+
+@media (min-width: 1250px){
+  .records-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}
+}
+
+@media (min-width: 1650px){
+  .records-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;}
+}
+
+
+/* v20: clean Engineering Records layout — no shortcut/presentation clutter */
+.dashboard-toolbar{
+  display:block !important;
+  width:100%;
+  box-sizing:border-box;
+  overflow:visible !important;
+}
+.dashboard-toolbar .toolbar-main{
+  display:block !important;
+  width:100%;
+  min-width:0;
+}
+.dashboard-toolbar .section-heading{
+  display:flex;
+  align-items:center;
+  width:100%;
+  min-width:0;
+  margin-bottom:10px;
+}
+.dashboard-toolbar .category-tabs{
+  display:flex !important;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  flex:none !important;
+  overflow-x:auto;
+  overflow-y:hidden;
+  flex-wrap:nowrap;
+  gap:6px;
+  padding:2px 2px 5px;
+  scrollbar-width:thin;
+  box-sizing:border-box;
+}
+.dashboard-toolbar .category-tabs .cat-btn{
+  flex:0 0 auto;
+  white-space:nowrap;
+}
+.dashboard-toolbar .toolbar-status{
+  display:flex;
+  width:100%;
+  margin-top:6px;
+  padding-top:7px;
+  border-top:1px solid #e2e8f0;
+  box-sizing:border-box;
+}
+.dashboard-toolbar .shortcut-hint,
+.data-tools #presentationBtn{
+  display:none !important;
+}
+.data-tools{
+  display:flex !important;
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.data-tools .tool-group{
+  min-width:0;
+  flex-wrap:wrap;
+}
+.records-grid{
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+.record-card{
+  min-width:0;
+  max-width:100%;
+  box-sizing:border-box;
+}
+.record-title-wrap,
+.record-header,
+.file-row{
+  min-width:0;
+}
+
+@media (min-width:901px){
+  .dashboard-toolbar .toolbar-main{overflow:visible !important}
+  .dashboard-toolbar .section-heading h2{white-space:nowrap}
+  .dashboard-toolbar .toolbar-status{justify-content:flex-start}
+}
+
+@media (max-width:900px){
+  .dashboard-toolbar .toolbar-status{display:none !important}
+  .data-tools{flex-direction:row !important}
+}
+
+/* Desktop: show exactly five Engineering Record cards per row */
+@media (min-width: 1200px) {
+  #cardsGrid,
+  .cards-grid,
+  .record-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Desktop 5-column records: make five cards fit at normal 100% browser zoom. */
+@media (min-width: 1400px) {
+  .records-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* v22: clean, uniform Engineering Record card layout */
+.records-grid{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:16px !important;
+  align-items:stretch !important;
+  grid-auto-flow:row !important;
+}
+.records-grid .record-card{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:100% !important;
+  min-height:220px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+.records-grid .record-body{
+  min-width:0 !important;
+  height:100% !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+.records-grid .record-header{min-width:0 !important;}
+.records-grid .record-title-wrap{min-width:0 !important;}
+.records-grid .record-title{
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+.records-grid .tags{
+  min-height:22px;
+  align-content:flex-start;
+}
+.records-grid .file-area{margin-top:auto;}
+.records-grid .card-footer-actions{margin-top:auto;}
+
+@media (min-width:1200px) and (max-width:1599px){
+  .records-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}
+}
+@media (min-width:1600px){
+  .records-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;}
+}
+@media (min-width:901px) and (max-width:1199px){
+  .records-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+}
+@media (min-width:601px) and (max-width:900px){
+  .records-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+}
+@media (max-width:600px){
+  .records-grid{grid-template-columns:1fr !important;gap:12px !important;}
+  .records-grid .record-card{min-height:205px !important;}
+}
+
+/* v24: isolated selected-model file summary; does not alter card layout */
+.file-summary-board{margin:0 0 16px;background:var(--surface,#fff);border:1px solid var(--line,#dce3ec);border-radius:10px;box-shadow:0 3px 12px rgba(15,23,42,.04);overflow:hidden}
+.file-summary-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border-bottom:1px solid var(--line,#dce3ec)}
+.file-summary-heading h3{margin:0;font-size:12px;font-weight:800;color:var(--ink,#0f172a)}
+.file-summary-heading h3 i{margin-right:6px;color:var(--accent,#0891b2)}
+.file-summary-heading p{margin:2px 0 0;font-size:9px;color:var(--muted,#64748b)}
+.summary-legend{display:flex;gap:12px;font-size:9px;color:var(--muted,#64748b);white-space:nowrap}
+.summary-legend span{display:flex;align-items:center;gap:5px}
+.file-summary-table-wrap{overflow-x:auto}.file-summary-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.file-summary-table th,.file-summary-table td{padding:7px 9px;border-bottom:1px solid var(--line,#dce3ec);text-align:left;font-size:9px;vertical-align:middle}
+.file-summary-table th{background:var(--surface-2,#f7f9fc);font:800 8px "JetBrains Mono";text-transform:uppercase;color:var(--muted,#64748b)}
+.file-summary-table tr:last-child td{border-bottom:0}.file-summary-table th:nth-child(1){width:12%}.file-summary-table th:nth-child(2){width:30%}.file-summary-table th:nth-child(3){width:40%}.file-summary-table th:nth-child(4){width:18%}
+.summary-file{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted,#64748b)}.summary-status{display:flex;align-items:center;gap:6px;font-weight:750}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:0 0 8px}.status-dot.present{background:#16a34a}.status-dot.missing{background:#dc2626}.summary-checking{text-align:center!important;color:var(--muted,#64748b);padding:12px!important}
+@media(max-width:700px){.file-summary-heading{align-items:flex-start;flex-direction:column}.file-summary-table{min-width:620px}.summary-legend{align-self:flex-start}}
+
+/* Model File Summary: compact two-row board */
+.file-summary-board{margin:0 0 14px}
+.file-summary-heading{padding:9px 12px}
+.file-summary-heading h3{font-size:11px}
+.file-summary-heading p{font-size:8px}
+.file-summary-table-wrap{overflow-x:auto}
+.file-summary-table{width:100%;min-width:980px;table-layout:fixed;border-collapse:collapse}
+.file-summary-table thead{display:none}
+.file-summary-table tbody tr{height:43px}
+.file-summary-table td{border-bottom:1px solid var(--line,#dce3ec);border-right:1px solid var(--line,#dce3ec);padding:5px 7px;vertical-align:middle}
+.file-summary-table tbody tr:last-child td{border-bottom:0}
+.file-summary-table td:last-child{border-right:0}
+.file-summary-cell{background:transparent}
+.summary-cell-top{display:flex;align-items:center;justify-content:space-between;gap:5px;line-height:1}
+.summary-cell-top strong{font:800 8px "JetBrains Mono";color:var(--accent,#0891b2)}
+.summary-cell-title{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:7.5px;font-weight:700;color:var(--ink,#0f172a);margin-top:3px}
+.summary-cell-file{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:6.5px;color:var(--muted,#64748b);margin-top:2px}
+.summary-empty{background:transparent}
+.summary-checking{height:86px;text-align:center!important;color:var(--muted,#64748b)!important}
+@media(max-width:700px){.file-summary-table{min-width:980px}.file-summary-heading{align-items:center;flex-direction:row}}
+
+/* V26: compact engineering cards + category/color sequence.
+   DOM/data unchanged; visual order follows the dashboard category color sequence. */
+.records-grid{gap:8px;margin-top:9px;align-items:stretch}
+.record-card{min-height:178px;border-radius:8px}
+.record-body{padding:8px;gap:6px}
+.record-title-wrap{gap:6px}
+.record-icon{width:24px;height:24px;border-radius:6px;font-size:9px}
+.record-key{font-size:6px}
+.record-title{font-size:9px;line-height:1.25;margin-top:1px}
+.category-label{font-size:6px}
+.tags{gap:2px;margin-top:4px}
+.tag{font-size:6.5px;padding:2px 4px;border-radius:3px}
+.file-area{padding-top:6px}
+.file-row{padding:5px;gap:5px;margin-top:4px}
+.file-name{font-size:7px}
+.file-size{font-size:6px}
+.download-btn{font-size:6px;padding:4px 5px;border-radius:4px}
+.card-footer-actions{gap:6px;margin-top:4px;padding-top:4px}
+.text-action{font-size:6.5px}
+
+/* Category/color sequence: Block Diagram → Schematics → RF → Process → Quality → Key Parts → General → R/Common */
+.records-grid .record-card{order:99}
+.records-grid .record-card:nth-child(20){order:1} /* S / Block Diagram */
+.records-grid .record-card:nth-child(2),
+.records-grid .record-card:nth-child(9),
+.records-grid .record-card:nth-child(16){order:2} /* B,I,P / Schematics */
+.records-grid .record-card:nth-child(11),
+.records-grid .record-card:nth-child(12),
+.records-grid .record-card:nth-child(13){order:3} /* K,L,M / RF & Wireless */
+.records-grid .record-card:nth-child(3),
+.records-grid .record-card:nth-child(5),
+.records-grid .record-card:nth-child(8){order:4} /* C,E,H / Process & Tech */
+.records-grid .record-card:nth-child(6),
+.records-grid .record-card:nth-child(7),
+.records-grid .record-card:nth-child(17){order:5} /* F,G,Q / Quality & SW */
+.records-grid .record-card:nth-child(10){order:6} /* J / Key Parts */
+.records-grid .record-card:nth-child(1),
+.records-grid .record-card:nth-child(4),
+.records-grid .record-card:nth-child(14),
+.records-grid .record-card:nth-child(15),
+.records-grid .record-card:nth-child(18){order:7} /* A,D,N,O,R / General */
+.records-grid .record-card:nth-child(19){order:8} /* Hardware Checklist */
+
+@media(min-width:1400px){.records-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.record-card{min-height:178px}}
+@media(min-width:2100px){.records-grid{gap:10px}.record-card{min-height:184px}}
+@media(max-width:1399px) and (min-width:901px){.records-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.record-card{min-height:178px}}
+@media(max-width:900px){.records-grid{gap:8px}.record-card{min-height:174px}}
+
+
+/* v27: compact Model File Summary hide/show control */
+.summary-heading-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+.summary-toggle{border:1px solid #d7e0ea;background:#fff;color:#475569;border-radius:6px;padding:4px 8px;font-size:8px;font-weight:800;cursor:pointer;white-space:nowrap}
+.summary-toggle:hover{background:#f1f5f9;border-color:#cbd5e1}
+.file-summary-board.summary-hidden .file-summary-table-wrap{display:none}
+.file-summary-board.summary-hidden .file-summary-heading{border-bottom:0}
+
+/* v27: six compact engineering cards per desktop row */
+@media(min-width:1200px){.records-grid{grid-template-columns:repeat(6,minmax(0,1fr)) !important;gap:8px !important}.record-card{min-height:174px}}
+@media(max-width:1200px) and (min-width:901px){.records-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important}}
+@media(max-width:700px){.summary-heading-actions{width:100%;justify-content:space-between}.summary-toggle{padding:5px 9px}}
+
+
+/* v29: requested compact cards + S/T/U sequence. T = VSWR Graph, U = Hardware Checklist. */
+.records-grid .record-card{min-height:158px !important;}
+.records-grid .record-body{padding:8px !important;gap:6px !important;}
+.records-grid .record-title{font-size:10.5px !important;font-weight:800 !important;line-height:1.2 !important;}
+.records-grid .record-key{font-size:7px !important;font-weight:850 !important;}
+.records-grid .category-label{font-size:7px !important;font-weight:800 !important;}
+.records-grid .tag{font-size:7px !important;font-weight:750 !important;padding:2px 4px !important;}
+.records-grid .file-name{font-size:7.5px !important;font-weight:750 !important;}
+.records-grid .file-size{font-size:6.5px !important;}
+.records-grid .download-btn{font-size:6.5px !important;font-weight:850 !important;padding:4px 5px !important;}
+.records-grid .text-action{font-size:6.5px !important;font-weight:800 !important;}
+
+/* Key Parts: two linked parts per row to reduce vertical height */
+.records-grid .record-card[data-record="J"]{grid-column:span 2 !important;min-height:158px !important;}
+.records-grid .record-card[data-record="J"] .file-area{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:4px !important;}
+.records-grid .record-card[data-record="J"] .file-row{margin-top:0 !important;min-width:0 !important;padding:4px !important;}
+
+/* Color-sequence layout: same-color/category cards stay together.
+   Block Diagram → Schematics → RF & Wireless → Process & Tech →
+   Defect summary & SW process → Key Parts → Specification. */
+.records-grid .record-card{order:99 !important;}
+.records-grid .record-card[data-record="S"]{order:1 !important;}
+.records-grid .record-card[data-record="B"],
+.records-grid .record-card[data-record="I"],
+.records-grid .record-card[data-record="P"]{order:2 !important;}
+.records-grid .record-card[data-record="K"],
+.records-grid .record-card[data-record="L"],
+.records-grid .record-card[data-record="M"],
+.records-grid .record-card[data-record="T"]{order:3 !important;}
+.records-grid .record-card[data-record="C"],
+.records-grid .record-card[data-record="E"],
+.records-grid .record-card[data-record="H"]{order:4 !important;}
+.records-grid .record-card[data-record="F"],
+.records-grid .record-card[data-record="G"],
+.records-grid .record-card[data-record="Q"]{order:5 !important;}
+.records-grid .record-card[data-record="J"]{order:6 !important;}
+.records-grid .record-card[data-record="A"],
+.records-grid .record-card[data-record="D"],
+.records-grid .record-card[data-record="N"],
+.records-grid .record-card[data-record="O"],
+.records-grid .record-card[data-record="R"],
+.records-grid .record-card[data-record="U"]{order:7 !important;}
+
+@media(max-width:900px){
+  .records-grid .record-card[data-record="J"]{grid-column:span 1 !important;}
+  .records-grid .record-card[data-record="J"] .file-area{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+}
+
+/* v30: stable A-U category sequence. The record data is now numbered in the
+   same order as the visual category groups, so CSS must not re-sort the DOM.
+   Common is U and is intentionally the final card. */
+.records-grid .record-card{order:initial !important;}
+.records-grid .record-card[data-record="J"]{grid-column:span 1 !important;}
+.records-grid .record-card[data-record="O"]{grid-column:span 2 !important;min-height:158px !important;}
+.records-grid .record-card[data-record="O"] .file-area{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:4px !important;}
+.records-grid .record-card[data-record="O"] .file-row{margin-top:0 !important;min-width:0 !important;padding:4px !important;}
+@media(max-width:900px){
+  .records-grid .record-card[data-record="O"]{grid-column:span 1 !important;}
+  .records-grid .record-card[data-record="O"] .file-area{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+}
+
+
+/* V31 FINAL: A-U DOM order is authoritative. Disable every legacy visual re-order rule. */
+.records-grid{display:grid !important;}
+.records-grid .record-card{order:initial !important;}
+@media(min-width:1200px){.records-grid{grid-template-columns:repeat(6,minmax(0,1fr)) !important;gap:8px !important;}}
+@media(max-width:1200px) and (min-width:901px){.records-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}}
+.records-grid .record-card[data-record="O"]{grid-column:span 2 !important;}
+@media(max-width:900px){.records-grid .record-card[data-record="O"]{grid-column:span 1 !important;}}
