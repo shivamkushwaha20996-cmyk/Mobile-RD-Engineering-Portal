@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mobile R&D Engineering Portal">
-  <title>Mobile R&D Engineering Portal — v15 File Command Center</title>
+  <title>Mobile R&D Engineering Portal</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/dashboard.css?v=15">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body class="min-h-screen bg-slate-100 text-slate-800 antialiased">
@@ -111,7 +111,7 @@
         <label class="tool-select"><span>Sort</span><select id="sortSelect"><option value="default">A→S order</option><option value="title">Title</option><option value="category">Category</option><option value="favorite">Favorites first</option></select></label>
         <button id="favoritesToggle" class="tool-btn" title="Show favorites only"><i class="fa-regular fa-star"></i> Favorites</button>
         <button id="presentationBtn" class="tool-btn"><i class="fa-solid fa-display"></i> Presentation</button>
-        <button id="fileCenterBtn" class="tool-btn tool-btn-primary"><i class="fa-solid fa-folder-open"></i> File Command Center</button>
+        <button id="fileCenterBtn" class="tool-btn file-center-trigger"><i class="fa-solid fa-folder-tree"></i> File Command Center</button>
       </div>
       <div class="tool-group">
         <button id="clearFiltersBtn" class="tool-btn">Clear filters</button>
@@ -190,45 +190,6 @@
     </section>
   </div>
 
-  <!-- File Command Center -->
-  <div id="fileCenterModal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <section class="modal-panel file-center-panel" role="dialog" aria-modal="true" aria-labelledby="fileCenterTitle">
-      <button class="modal-close" data-close="fileCenterModal"><i class="fa-solid fa-xmark"></i></button>
-      <div class="modal-heading">
-        <div class="modal-icon"><i class="fa-solid fa-folder-tree"></i></div>
-        <div><h2 id="fileCenterTitle">File Command Center</h2><p class="modal-description">Find, preview, download and manage engineering files for the active model.</p></div>
-      </div>
-      <div class="file-center-toolbar">
-        <div class="file-center-search"><i class="fa-solid fa-magnifying-glass"></i><input id="fileCenterSearch" type="search" placeholder="Search filename, model, record or type..."></div>
-        <select id="fileCenterModel" class="form-input file-center-filter"><option value="all">All models</option></select>
-        <button id="fileCenterRefresh" class="btn btn-light"><i class="fa-solid fa-rotate"></i> Refresh</button>
-      </div>
-      <div class="file-center-stats"><span id="fileCenterCount">0 files</span><span id="fileCenterRecent">Recent uploads</span></div>
-      <div id="fileCenterList" class="file-center-list"></div>
-    </section>
-  </div>
-
-  <!-- File Preview -->
-  <div id="filePreviewModal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <section class="modal-panel file-preview-panel" role="dialog" aria-modal="true" aria-labelledby="filePreviewTitle">
-      <button class="modal-close" data-close="filePreviewModal"><i class="fa-solid fa-xmark"></i></button>
-      <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-eye"></i></div><div><h2 id="filePreviewTitle">File Preview</h2><p id="filePreviewMeta" class="modal-description"></p></div></div>
-      <div id="filePreviewBody" class="file-preview-body"></div>
-    </section>
-  </div>
-
-  <!-- Version History -->
-  <div id="fileVersionsModal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <section class="modal-panel modal-md" role="dialog" aria-modal="true" aria-labelledby="fileVersionsTitle">
-      <button class="modal-close" data-close="fileVersionsModal"><i class="fa-solid fa-xmark"></i></button>
-      <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div><h2 id="fileVersionsTitle">Version History</h2><p id="fileVersionsMeta" class="modal-description"></p></div></div>
-      <div id="fileVersionsList" class="version-list"></div>
-    </section>
-  </div>
-
   <!-- Settings -->
   <div id="settingsModal" class="modal hidden">
     <div class="modal-backdrop"></div>
@@ -258,7 +219,40 @@
   </div>
 
 
-  <!-- Compare -->
+  <!-- Isolated File Command Center -->
+  <div id="fileCenterModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-xl file-center-panel" role="dialog" aria-modal="true" aria-labelledby="fileCenterTitle">
+      <button class="modal-close" data-close-file-center="fileCenterModal" type="button"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-heading">
+        <div class="modal-icon cyan-bg"><i class="fa-solid fa-folder-tree"></i></div>
+        <div><h2 id="fileCenterTitle">Engineering File Command Center</h2><p class="modal-description">Search, preview and download files already stored in this browser repository.</p></div>
+      </div>
+      <div class="file-center-toolbar">
+        <div class="file-center-search"><i class="fa-solid fa-magnifying-glass"></i><input id="fileCenterSearch" type="search" placeholder="Search filename, model, record or category..."></div>
+        <select id="fileCenterModel" class="form-input"><option value="">All models</option></select>
+        <button id="fileCenterRefresh" class="btn btn-light" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        <span id="fileCenterCount" class="file-center-count">0 files</span>
+      </div>
+      <div class="file-center-layout">
+        <div id="fileCenterList" class="file-center-list"></div>
+        <aside class="file-center-recent">
+          <div class="file-center-side-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Uploads</div>
+          <div id="fileCenterRecent"></div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <div id="filePreviewModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <section class="modal-panel modal-xl file-preview-panel" role="dialog" aria-modal="true" aria-labelledby="filePreviewTitle">
+      <button class="modal-close" type="button" onclick="document.getElementById('filePreviewModal').classList.add('hidden')"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-heading"><div class="modal-icon"><i class="fa-solid fa-eye"></i></div><div><h2 id="filePreviewTitle">File Preview</h2><p id="filePreviewMeta" class="modal-description"></p></div></div>
+      <div id="filePreviewBody" class="file-preview-body"></div>
+    </section>
+  </div>
+
   <!-- Presentation -->
   <div id="presentationModal" class="modal hidden">
     <div class="modal-backdrop"></div>
@@ -269,6 +263,7 @@
     </section>
   </div>
 
-  <script type="module" src="js/app.js?v=15"></script>
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/file-command-center.js"></script>
 </body>
 </html>
