@@ -1,0 +1,23 @@
+MOBILE R&D ENGINEERING PORTAL — FINAL V42 VERIFICATION
+
+Purpose: Office-laptop build; fixes the 19-record issue.
+
+Verified:
+1. data/models.js imports successfully as an ES module.
+2. MODEL_ORDER contains 6 models: A576, A376, A076, A075, A085, S741.
+3. RECORD_ORDER contains exactly 21 keys: A through U.
+4. createDefaultData() produces exactly 21 records for every model.
+5. T = Hardware Checklist.
+6. U = Common and U is last.
+7. H = VSWR Graph.
+8. A = Block Diagram.
+9. O = Key Parts Details.
+10. index.html default record count is 21 records.
+11. app.js uses RECORD_ORDER for card rendering and upload record selection.
+12. Existing localStorage key V10 is retained so existing user data is not intentionally discarded; migration/safety-net logic restores missing standard records.
+13. App cache query updated to V42-FINAL.
+14. Desktop CSS keeps 6-column layout at >=1200px and O spans 2 columns.
+15. Mobile CSS keeps single-column layout at <=600px.
+
+Root cause corrected:
+The reconstructed models.js contained malformed object property declarations (for example A:A:{...}), and the visible HTML still had a hard-coded "19 records" placeholder. The corrected build uses valid object properties A:{...} through U:{...}, verifies 21 generated records, and changes the placeholder to 21.
