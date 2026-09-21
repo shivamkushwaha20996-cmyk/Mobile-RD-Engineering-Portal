@@ -1107,3 +1107,103 @@ body[data-theme="dark"] .file-center-search,body[data-theme="dark"] .file-center
 @media(max-width:1199px) and (min-width:901px){.records-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important}.records-grid .record-card[data-record="O"]{grid-column:span 1 !important}}
 @media(max-width:900px){.records-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.records-grid .record-card[data-record="O"]{grid-column:span 1 !important}}
 @media(max-width:600px){.records-grid{grid-template-columns:1fr !important}}
+
+/* =========================================================
+   FINAL MOBILE FIX — V41
+   The workspace must become a true single-column mobile layout.
+   This override is intentionally last so it wins over all earlier
+   desktop/laptop workspace rules.
+   ========================================================= */
+@media (max-width: 900px){
+  html,body{width:100%;min-width:0!important;overflow-x:hidden!important}
+  .workspace-shell{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    min-height:0!important;
+    margin:0!important;
+  }
+  .model-sidebar{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    width:100%!important;
+    max-width:none!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow:visible!important;
+    box-sizing:border-box!important;
+    border-right:0!important;
+    border-bottom:1px solid #263449!important;
+    padding:10px!important;
+    margin:0!important;
+  }
+  .workspace-shell>.app-container{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    padding:10px!important;
+    margin:0!important;
+  }
+  .sidebar-top{
+    display:grid!important;
+    grid-template-columns:auto minmax(0,1fr) auto!important;
+    align-items:center!important;
+    gap:6px!important;
+    padding:0 2px 9px!important;
+  }
+  .sidebar-kicker{grid-column:1/-1!important}
+  .sidebar-model-code{font-size:24px!important;margin:0!important}
+  .sidebar-model-name{font-size:10px!important;margin:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .model-sidebar .status-pill{margin:0!important;font-size:7px!important}
+  .sidebar-telemetry{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;margin-top:8px!important}
+  .sidebar-metric{padding:6px 7px!important}
+  .sidebar-metric span{font-size:6px!important}
+  .sidebar-metric strong{font-size:8px!important}
+  .sidebar-actions{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;margin-top:7px!important}
+  .sidebar-action{height:29px!important;padding:0 7px!important;font-size:7px!important}
+  .model-nav{margin-top:8px!important}
+  .model-nav-list{display:flex!important;overflow-x:auto!important;overflow-y:hidden!important;gap:4px!important}
+  .model-nav-item{min-width:90px!important;flex:0 0 auto!important}
+  .sidebar-footer{display:none!important}
+  .dashboard-toolbar{
+    width:100%!important;
+    box-sizing:border-box!important;
+    display:block!important;
+    padding:10px!important;
+    margin:0 0 8px!important;
+  }
+  .toolbar-main{display:block!important;width:100%!important}
+  .section-heading{margin-bottom:7px!important}
+  .category-tabs{width:100%!important;overflow-x:auto!important;display:flex!important}
+  .toolbar-status{display:none!important}
+  .data-tools{width:100%!important;box-sizing:border-box!important;margin:8px 0!important;display:flex!important;flex-direction:column!important;align-items:stretch!important}
+  .tool-group{width:100%!important;display:flex!important;flex-wrap:wrap!important}
+  .file-summary-board{width:100%!important;box-sizing:border-box!important}
+  .file-summary-table-wrap{width:100%!important;overflow-x:auto!important}
+  .records-grid{width:100%!important;min-width:0!important;grid-template-columns:1fr!important;gap:8px!important}
+  .records-grid .record-card{width:100%!important;min-width:0!important;grid-column:span 1!important}
+  .records-grid .record-card[data-record="O"]{grid-column:span 1!important}
+  .records-grid .record-card .file-area{min-width:0!important}
+  .recent-panel{width:100%!important;box-sizing:border-box!important;margin-top:10px!important}
+}
+
+@media (max-width: 600px){
+  .header-inner{padding:7px 10px!important;gap:7px!important}
+  .brand{width:100%!important}
+  .brand-title{font-size:11px!important}
+  .header-actions{width:100%!important;display:flex!important;flex-wrap:wrap!important;justify-content:flex-end!important;gap:5px!important}
+  .header-search{width:100%!important;order:10!important}
+  .model-picker-search{min-width:0!important;flex:1 1 150px!important}
+  .sidebar-telemetry{grid-template-columns:1fr 1fr!important}
+  .sidebar-actions{grid-template-columns:1fr!important}
+  .sidebar-action{justify-content:center!important}
+  .workspace-shell>.app-container{padding:8px!important}
+  .records-grid .record-card{min-height:0!important}
+  .record-body{padding:9px!important;gap:8px!important}
+  .record-title{font-size:11px!important}
+  .file-summary-heading{align-items:flex-start!important;gap:7px!important}
+  .summary-heading-actions{width:100%!important;justify-content:space-between!important}
+}
