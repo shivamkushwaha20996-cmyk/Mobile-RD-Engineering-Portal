@@ -13,7 +13,7 @@ export const CATEGORIES = [
 ];
 
 export const CATEGORY_COLORS = {
-  "Block Diagram":"#0d9488",
+  "Block Diagram":"#7c3aed",
   "Schematics":"#2563eb",
   "RF & Wireless":"#059669",
   "Process & Tech":"#d97706",
