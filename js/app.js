@@ -1,5 +1,5 @@
 import {MODEL_ORDER,RECORD_ORDER,CATEGORIES,CATEGORY_COLORS,createDefaultData} from "../data/models.js";
-import {saveFile,getFile,deleteAllFiles,addAudit} from "./database.js";
+import {saveFile,getFile,listFiles,getVersions,deleteAllFiles,addAudit} from "./database.js";
 import {toast,escapeHtml,formatBytes,downloadBlob,downloadText} from "./ui.js";
 
 const STORAGE_KEY="MOBILE_RND_DB_DATA_V10";
@@ -75,6 +75,11 @@ function bindEvents(){
   document.getElementById("recentList").addEventListener("click",e=>{const b=e.target.closest("[data-recent-key]");if(b){setModel(b.dataset.recentModel);setTimeout(()=>openRecord(b.dataset.recentKey),50)}});
   document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closeModal(b.dataset.close)));document.querySelectorAll(".modal-backdrop").forEach(b=>b.addEventListener("click",()=>b.parentElement.classList.add("hidden")));
   document.getElementById("loginForm").addEventListener("submit",login);document.getElementById("uploadModel").addEventListener("change",e=>{currentModel=e.target.value;renderAll()});document.getElementById("dropZone").addEventListener("click",()=>document.getElementById("fileInput").click());document.getElementById("dropZone").addEventListener("dragover",e=>{e.preventDefault();document.getElementById("dropZone").classList.add("drag-active")});document.getElementById("dropZone").addEventListener("dragleave",()=>document.getElementById("dropZone").classList.remove("drag-active"));document.getElementById("dropZone").addEventListener("drop",e=>{e.preventDefault();document.getElementById("dropZone").classList.remove("drag-active");selectFile(e.dataTransfer.files[0])});document.getElementById("fileInput").addEventListener("change",e=>selectFile(e.target.files[0]));document.getElementById("uploadForm").addEventListener("submit",upload);
+  document.getElementById("fileCenterBtn").addEventListener("click",()=>openFileCenter());
+  document.getElementById("fileCenterSearch").addEventListener("input",renderFileCenter);
+  document.getElementById("fileCenterModel").addEventListener("change",renderFileCenter);
+  document.getElementById("fileCenterRefresh").addEventListener("click",()=>openFileCenter(true));
+  document.getElementById("fileCenterList").addEventListener("click",handleFileCenterClick);
   document.getElementById("motionToggle").addEventListener("change",e=>{prefs.motion=e.target.checked;savePrefs();applyPrefs()});document.getElementById("backupBtn").addEventListener("click",()=>downloadText(JSON.stringify(data,null,2),`MobileRD_Backup_${dateStamp()}.json`));document.getElementById("resetBtn").addEventListener("click",resetData);
   document.addEventListener("keydown",e=>{const tag=document.activeElement?.tagName||"";const typing=/INPUT|TEXTAREA|SELECT/.test(tag);if(e.key==="Escape")document.querySelectorAll(".modal:not(.hidden)").forEach(m=>m.classList.add("hidden"));if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();document.getElementById("searchInput").focus()}if(e.key==="/"&&!typing){e.preventDefault();document.getElementById("searchInput").focus()}if(e.key.toLowerCase()==="f"&&!typing)toggleFullscreen();if(e.key.toLowerCase()==="p"&&!typing){e.preventDefault();document.getElementById("presentationBtn").click()}if((e.key==="ArrowLeft"||e.key==="ArrowRight")&&!typing&&!document.querySelector(".modal:not(.hidden)")){navigateRecord(e.key==="ArrowLeft"?-1:1)}});
 }
@@ -94,6 +99,51 @@ function exportModel(){downloadText(JSON.stringify(data[currentModel],null,2),`$
 function exportReport(){const m=data[currentModel].meta,rows=filteredEntries().map(([k,i])=>`${k} | ${i.title} | ${i.category} | ${i.filename||`${i.subItems?.length||0} linked files`}`).join("\n");downloadText(`MOBILE R&D ENGINEERING REPORT\n================================\nModel: ${currentModel} - ${m.name}\nStatus: ${m.status}\nProcessor: ${m.ap}\nModem/RF: ${m.modem}\nSW Build: ${m.swVersion}\nHQ Lead: ${m.leadKorea}\n\nRECORDS\n-------\n${rows}\n\nGenerated: ${new Date().toISOString()}`,`${currentModel}_Engineering_Report.txt`,"text/plain");toast("Engineering report exported.","success")}
 function openPresentation(key){const i=recordData(key);if(!i)return;document.getElementById("presentationContent").innerHTML=`<div class="presentation-code">${currentModel} · RECORD ${key}</div><h2>${escapeHtml(i.title)}</h2><div class="presentation-category">${escapeHtml(i.category)}</div><div class="presentation-tags">${(i.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div><div class="presentation-file"><strong>File</strong><span>${escapeHtml(i.filename||"Linked record")}</span></div>`;openModal("presentationModal")}
 function navigateRecord(delta){const arr=RECORD_ORDER.filter(k=>currentItems()[k]);const idx=arr.indexOf(location.hash.split("/").pop());const next=arr[Math.max(0,Math.min(arr.length-1,(idx<0?0:idx)+delta))];if(next)openRecord(next)}
+async function openFileCenter(forceRefresh=false){
+  const modal=document.getElementById("fileCenterModal");
+  const modelSelect=document.getElementById("fileCenterModel");
+  if(modelSelect.options.length===1){modelSelect.innerHTML='<option value="all">All models</option>'+MODEL_ORDER.map(m=>`<option value="${m}">${m} • ${escapeHtml(data[m].meta.name)}</option>`).join("");modelSelect.value=currentModel}
+  if(forceRefresh) document.getElementById("fileCenterSearch").value="";
+  openModal("fileCenterModal");
+  await renderFileCenter();
+}
+async function renderFileCenter(){
+  const list=document.getElementById("fileCenterList");
+  if(!list)return;
+  list.innerHTML='<div class="file-center-loading"><i class="fa-solid fa-spinner fa-spin"></i> Loading files…</div>';
+  try{
+    const stored=await listFiles();
+    const q=document.getElementById("fileCenterSearch").value.trim().toLowerCase();
+    const model=document.getElementById("fileCenterModel").value;
+    const rows=stored.filter(f=>{
+      const [fm,fk]=String(f.key).split("_");
+      const item=data[fm]?.items?.[fk];
+      const hay=[f.filename,f.type,f.key,fm,fk,item?.title,item?.category,...(item?.tags||[])].join(" ").toLowerCase();
+      return (!q||hay.includes(q))&&(!model||model==="all"||fm===model);
+    }).sort((a,b)=>String(b.updatedAt||"").localeCompare(String(a.updatedAt||"")));
+    document.getElementById("fileCenterCount").textContent=`${rows.length} file${rows.length===1?"":"s"}`;
+    document.getElementById("fileCenterRecent").textContent=rows.length?`Latest: ${formatDate(rows[0].updatedAt)}`:"No matching files";
+    list.innerHTML=rows.length?rows.map(renderFileCenterRow).join(""):'<div class="file-center-empty"><i class="fa-regular fa-folder-open"></i><h3>No files found</h3><p>Upload a document or change the search/filter.</p></div>';
+  }catch(err){console.error(err);list.innerHTML='<div class="file-center-empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Could not load files</h3><p>Local file storage could not be read.</p></div>'}
+}
+function formatDate(value){if(!value)return"—";try{return new Intl.DateTimeFormat(undefined,{dateStyle:"medium",timeStyle:"short"}).format(new Date(value))}catch{return value}}
+function renderFileCenterRow(f){
+  const [model,key]=String(f.key).split("_");
+  const item=data[model]?.items?.[key]||{};
+  const ext=(f.filename||"").split(".").pop().toUpperCase()||"FILE";
+  const previewable=/^(PDF|PNG|JPG|JPEG|GIF|WEBP|TXT|CSV|SVG)$/i.test(ext)||String(f.type||"").startsWith("image/")||f.type==="application/pdf";
+  return `<article class="file-center-row"><div class="file-type-icon"><i class="fa-solid ${fileIcon(ext)}"></i></div><div class="file-center-main"><div class="file-center-name" title="${escapeHtml(f.filename||"")}">${escapeHtml(f.filename||"Unnamed file")}</div><div class="file-center-meta"><span>${escapeHtml(model)} · ${escapeHtml(key)}</span><span>${escapeHtml(item.title||item.category||"Engineering record")}</span><span>${escapeHtml(formatBytes(f.size||0))}</span><span>${escapeHtml(formatDate(f.updatedAt))}</span></div></div><div class="file-center-actions"><button class="tool-btn" data-file-preview="${escapeHtml(f.key)}" ${previewable?"":"disabled title=\"Preview unavailable for this file type\""}><i class="fa-solid fa-eye"></i><span>Preview</span></button><button class="tool-btn" data-file-download="${escapeHtml(f.key)}" data-file-name="${escapeHtml(f.filename||key+"."+ext.toLowerCase())}"><i class="fa-solid fa-download"></i><span>Download</span></button><button class="tool-btn" data-file-versions="${escapeHtml(f.key)}"><i class="fa-solid fa-clock-rotate-left"></i><span>Versions</span></button></div></article>`;
+}
+function fileIcon(ext){if(ext==="PDF")return"fa-file-pdf";if(["XLSX","XLS","CSV"].includes(ext))return"fa-file-excel";if(["DOC","DOCX"].includes(ext))return"fa-file-word";if(["PPT","PPTX"].includes(ext))return"fa-file-powerpoint";if(["ZIP","BIN"].includes(ext))return"fa-file-zipper";if(["PNG","JPG","JPEG","GIF","WEBP","SVG"].includes(ext))return"fa-file-image";return"fa-file"}
+async function handleFileCenterClick(e){
+  const preview=e.target.closest("[data-file-preview]"),download=e.target.closest("[data-file-download]"),versions=e.target.closest("[data-file-versions]");
+  if(preview)await previewFile(preview.dataset.filePreview);
+  else if(download)await downloadStoredFile(download.dataset.fileDownload,download.dataset.fileName);
+  else if(versions)await showVersions(versions.dataset.fileVersions);
+}
+async function downloadStoredFile(key,filename){const f=await getFile(key);if(!f?.blob){toast("Stored file is unavailable.","error");return}const ok=downloadBlob(f.blob,f.filename||filename);if(ok){await addAudit("DOWNLOAD",{key,filename:f.filename||filename});toast("Download started.","success")}else toast("Browser blocked the download.","error")}
+async function previewFile(key){const f=await getFile(key);if(!f?.blob){toast("Stored file is unavailable.","error");return}const body=document.getElementById("filePreviewBody"),meta=document.getElementById("filePreviewMeta");document.getElementById("filePreviewTitle").textContent=f.filename||"File Preview";meta.textContent=`${formatBytes(f.size||0)} · ${formatDate(f.updatedAt)}`;const url=URL.createObjectURL(f.blob);body.innerHTML="";if(f.type==="application/pdf"){body.innerHTML=`<iframe class="file-preview-frame" src="${url}" title="${escapeHtml(f.filename||"PDF preview")}"></iframe>`}else if(String(f.type||"").startsWith("image/")){body.innerHTML=`<img class="file-preview-image" src="${url}" alt="${escapeHtml(f.filename||"Image preview")}">`}else if(/^(text\/|application\/csv)/i.test(f.type||"")||/\.(txt|csv|svg)$/i.test(f.filename||"")){const text=await f.blob.text();body.innerHTML=`<pre class="file-preview-text">${escapeHtml(text.slice(0,200000))}</pre>`;URL.revokeObjectURL(url)}else{body.innerHTML=`<div class="file-preview-unavailable"><i class="fa-solid fa-file-circle-question"></i><h3>Preview not available</h3><p>This file type can still be downloaded.</p><button class="btn btn-dark" id="previewDownloadBtn"><i class="fa-solid fa-download"></i> Download</button></div>`;document.getElementById("previewDownloadBtn").onclick=()=>downloadStoredFile(key,f.filename);URL.revokeObjectURL(url)}openModal("filePreviewModal");await addAudit("PREVIEW",{key,filename:f.filename})}
+async function showVersions(key){const rows=await getVersions(key),meta=rows[0]||await getFile(key);document.getElementById("fileVersionsTitle").textContent=meta?.filename||"Version History";document.getElementById("fileVersionsMeta").textContent=`${rows.length} saved version${rows.length===1?"":"s"}`;document.getElementById("fileVersionsList").innerHTML=rows.length?rows.map((v,i)=>`<div class="version-row"><div><strong>Version ${rows.length-i}</strong><span>${escapeHtml(v.filename||"Unnamed file")} · ${escapeHtml(formatBytes(v.size||0))}</span><small>${escapeHtml(formatDate(v.versionAt||v.updatedAt))}</small></div><button class="tool-btn" data-version-download="${v.id}"><i class="fa-solid fa-download"></i> Download</button></div>`).join(""):'<div class="file-center-empty"><i class="fa-regular fa-clock"></i><p>No version history available yet.</p></div>';document.getElementById("fileVersionsList").onclick=async e=>{const b=e.target.closest("[data-version-download]");if(!b)return;const id=Number(b.dataset.versionDownload);const v=rows.find(x=>x.id===id);if(v)downloadBlob(v.blob,v.filename);};openModal("fileVersionsModal")}
 async function resetData(){if(!confirm("Reset all local dashboard data and stored files? This cannot be undone."))return;data=createDefaultData();saveData();await deleteAllFiles();await addAudit("RESET");currentModel=MODEL_ORDER[0];activeCategory="all";query="";renderCategories();renderAll();closeModal("settingsModal");toast("Local data reset to default dataset.","success")}
 function dateStamp(){return new Date().toISOString().slice(0,10).replaceAll("-","")}
 function showRuntimeError(err){
