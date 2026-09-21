@@ -17,18 +17,9 @@ export function formatBytes(bytes){
   return `${(bytes/Math.pow(1024,i)).toFixed(i?1:0)} ${units[i]}`;
 }
 export function downloadBlob(blob,filename){
-  try{
-    const safeName=String(filename||"download").replace(/[\\/:*?"<>|]+/g,"_");
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url;a.download=safeName;a.rel="noopener";
-    document.body.appendChild(a);a.click();a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1500);
-    return true;
-  }catch(err){
-    console.error("Download failed",err);
-    return false;
-  }
+  const url=URL.createObjectURL(blob); const a=document.createElement("a");
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 export function downloadText(text,filename,type="application/json"){
   downloadBlob(new Blob([text],{type}),filename);
