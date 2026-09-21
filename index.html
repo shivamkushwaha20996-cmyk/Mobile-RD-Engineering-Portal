@@ -55,7 +55,6 @@
           <i class="fa-solid fa-gear"></i>
         </button>
         <div id="adminAuthSlot"></div>
-        <button id="lockPortalBtn" class="header-icon-btn" title="Lock portal" aria-label="Lock portal"><i class="fa-solid fa-lock"></i></button>
       </div>
     </div>
   </header>
@@ -205,7 +204,7 @@
       <div class="settings-list">
         <div class="settings-section-title">APPEARANCE</div>
         <label class="setting-row"><span><strong>Theme</strong><small>Switch between light, dark, or system appearance.</small></span><select id="themeSelect" class="settings-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></label>
-        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option><option value="rose">Rose</option><option value="orange">Orange</option><option value="indigo">Indigo</option><option value="teal">Teal</option><option value="fuchsia">Fuchsia</option><option value="sky">Sky</option></select></label>
+        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option></select></label>
         <label class="setting-row"><span><strong>Card density</strong><small>Choose comfortable or compact record spacing.</small></span><select id="densitySelect" class="settings-select"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label>
         <label class="setting-row"><span><strong>Animations</strong><small>Enable card and interface motion.</small></span><input id="motionToggle" type="checkbox" checked></label>
         <div class="settings-section-title">WORKSPACE</div>
@@ -266,21 +265,6 @@
       <div id="presentationContent" class="presentation-content"></div>
       <div class="presentation-nav"><button id="prevRecordBtn" class="btn btn-light">← Previous</button><button id="nextRecordBtn" class="btn btn-dark">Next →</button></div>
     </section>
-  </div>
-
-  <!-- Portal Lock -->
-  <div id="portalLockOverlay" class="portal-lock-overlay hidden">
-    <div class="portal-lock-card">
-      <div class="portal-lock-icon"><i class="fa-solid fa-lock"></i></div>
-      <div class="portal-lock-kicker">ENGINEERING PORTAL</div>
-      <h2>Portal Locked</h2>
-      <p>Enter the admin password to unlock the portal.</p>
-      <form id="portalUnlockForm">
-        <input id="portalUnlockPassword" class="form-input" type="password" placeholder="Admin password" autocomplete="current-password" required>
-        <p id="portalUnlockError" class="error-text hidden">Incorrect password.</p>
-        <button class="btn btn-cyan portal-unlock-btn" type="submit"><i class="fa-solid fa-unlock"></i> Unlock Portal</button>
-      </form>
-    </div>
   </div>
 
   <script type="module" src="js/app.js"></script>
