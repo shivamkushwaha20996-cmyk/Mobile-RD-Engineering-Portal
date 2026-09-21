@@ -119,6 +119,10 @@
     </section>
 
     <div id="activeFilters" class="active-filters hidden"></div>
+    <section class="file-summary-board" aria-labelledby="fileSummaryTitle">
+      <div class="file-summary-heading"><div><h3 id="fileSummaryTitle"><i class="fa-solid fa-clipboard-list"></i> Model File Summary</h3><p>Selected model file availability</p></div><div class="summary-heading-actions"><span class="summary-legend"><span><i class="status-dot present"></i> Present</span><span><i class="status-dot missing"></i> Missing</span></span><button id="fileSummaryToggle" class="summary-toggle" type="button" aria-expanded="true"><i class="fa-solid fa-eye-slash"></i> Hide</button></div></div>
+      <div class="file-summary-table-wrap"><table class="file-summary-table"><thead><tr><th>Record</th><th>Engineering Record</th><th>File</th><th>Status</th></tr></thead><tbody id="fileSummaryBody"></tbody></table></div>
+    </section>
     <section id="cardsGrid" class="records-grid" aria-live="polite"></section>
     <section class="recent-panel">
       <div class="recent-heading"><span><i class="fa-solid fa-clock-rotate-left"></i> Recently Viewed</span><small>Existing records only</small></div>

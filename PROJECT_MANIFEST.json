@@ -1,6 +1,6 @@
 {
   "project": "Mobile R&D Engineering Portal",
-  "version": "5.0.0",
+  "version": "2.0.0",
   "files": [
     "README.md",
     "css/dashboard.css",
