@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/dashboard.css?v=V41-MOBILE">
+  <link rel="stylesheet" href="css/dashboard.css?v=V45-MASTER">
 </head>
 
 <body class="min-h-screen bg-slate-100 text-slate-800 antialiased">
@@ -108,7 +108,7 @@
 
     <section class="data-tools">
       <div class="tool-group">
-        <label class="tool-select"><span>Sort</span><select id="sortSelect"><option value="default">A→S order</option><option value="title">Title</option><option value="category">Category</option><option value="favorite">Favorites first</option></select></label>
+        <label class="tool-select"><span>Sort</span><select id="sortSelect"><option value="default">A→U order</option><option value="title">Title</option><option value="category">Category</option><option value="favorite">Favorites first</option></select></label>
         <button id="favoritesToggle" class="tool-btn" title="Show favorites only"><i class="fa-regular fa-star"></i> Favorites</button>
         <button id="presentationBtn" class="tool-btn"><i class="fa-solid fa-display"></i> Presentation</button>
         <button id="fileCenterBtn" class="tool-btn file-center-trigger"><i class="fa-solid fa-folder-tree"></i> File Command Center</button>
@@ -204,12 +204,17 @@
       <div class="settings-list">
         <div class="settings-section-title">APPEARANCE</div>
         <label class="setting-row"><span><strong>Theme</strong><small>Switch between light, dark, or system appearance.</small></span><select id="themeSelect" class="settings-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></label>
-        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option></select></label>
+        <label class="setting-row"><span><strong>Accent color</strong><small>Change the portal highlight color.</small></span><select id="accentSelect" class="settings-select"><option value="cyan">Cyan</option><option value="blue">Blue</option><option value="violet">Violet</option><option value="emerald">Emerald</option><option value="amber">Amber</option><option value="rose">Rose</option><option value="orange">Orange</option><option value="indigo">Indigo</option><option value="teal">Teal</option><option value="fuchsia">Fuchsia</option><option value="sky">Sky</option></select></label>
         <label class="setting-row"><span><strong>Card density</strong><small>Choose comfortable or compact record spacing.</small></span><select id="densitySelect" class="settings-select"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label>
         <label class="setting-row"><span><strong>Animations</strong><small>Enable card and interface motion.</small></span><input id="motionToggle" type="checkbox" checked></label>
         <div class="settings-section-title">WORKSPACE</div>
         <div class="setting-info"><i class="fa-solid fa-star"></i><span>Favorites and last-viewed model are saved locally in this browser.</span></div>
         <div class="shortcut-grid"><span><kbd>Ctrl K</kbd> Focus search</span><span><kbd>/</kbd> Focus search</span><span><kbd>F</kbd> Fullscreen</span><span><kbd>Esc</kbd> Close panels</span></div>
+      </div>
+
+      <div class="settings-actions">
+        <button id="settingsApplyBtn" class="btn btn-cyan" type="button">Apply</button>
+        <button id="settingsOkBtn" class="btn btn-dark" type="button">OK</button>
       </div>
 
       <div class="settings-danger">
@@ -267,7 +272,7 @@
     </section>
   </div>
 
-  <script type="module" src="js/app.js?v=V42-FINAL"></script>
-  <script type="module" src="js/file-command-center.js?v=V41-MOBILE"></script>
+  <script type="module" src="js/app.js?v=V45-MASTER"></script>
+  <script type="module" src="js/file-command-center.js?v=V45-MASTER"></script>
 </body>
 </html>
